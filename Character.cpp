@@ -26,7 +26,7 @@ void Character::getSprite() {
 	throw "Not yet implemented";
 }
 
-void Character::setSprite(string name) {
+void Character::setSprite(QString name) {
 	// TODO - implement Character::setSprite
 	throw "Not yet implemented";
 }

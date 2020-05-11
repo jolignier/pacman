@@ -1,8 +1,9 @@
 #include "Node.h"
 
-Node::Node(Graphe g, cell c) {
-	// TODO - implement Node::Node
-	throw "Not yet implemented";
+Node::Node(const Node& n) {
+    this->neighbors = n.neighbors;
+    this->linkedCell = n.linkedCell;
+    //this->graphe = n.graphe;
 }
 
 void Node::addNeighbour(Cell c) {

@@ -5,12 +5,12 @@ Ghost::Ghost() {
 	throw "Not yet implemented";
 }
 
-boolean Ghost::isAffraid() {
+bool Ghost::isAffraid() {
 	// TODO - implement Ghost::isAffraid
 	throw "Not yet implemented";
 }
 
-boolean Ghost::isChasing() {
+bool Ghost::isChasing() {
 	// TODO - implement Ghost::isChasing
 	throw "Not yet implemented";
 }

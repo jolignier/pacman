@@ -1,6 +1,10 @@
 #ifndef SCORE_H
 #define SCORE_H
 
+#include <stdlib.h>
+
+using namespace std;
+
 class Score {
 
 private:

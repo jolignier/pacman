@@ -12,3 +12,8 @@ Cell::Cell(int x, int y) {
 	// TODO - implement Cell::Cell
 	throw "Not yet implemented";
 }
+
+Cell::Cell(){
+    // TODO - implement Cell::Cell
+    throw "Not yet implemented";
+}

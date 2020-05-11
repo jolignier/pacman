@@ -1,10 +1,16 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include <stdlib.h>
+#include <QString>
+#include <QRect>
+
+using namespace std;
+
 class Game {
 
 private:
-	boolean playing;
+    bool playing;
 
 public:
 	Game();
@@ -19,7 +25,7 @@ public:
 
 	void displayMenu();
 
-	void newGame();
+    void newGame();
 };
 
 #endif

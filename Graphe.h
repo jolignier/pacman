@@ -1,10 +1,17 @@
 #ifndef GRAPHE_H
 #define GRAPHE_H
 
+#include <stdlib.h>
+#include <vector>
+#include "Node.h"
+#include "Cell.h"
+
+using namespace std;
+
 class Graphe {
 
 private:
-	std::vector<Node> vertices;
+    //vector<Node> vertices;
 	int infinite;
 
 public:

@@ -1,6 +1,10 @@
 #ifndef CELL_H
 #define CELL_H
 
+#include <stdlib.h>
+
+using namespace std;
+
 class Cell {
 
 private:
@@ -13,6 +17,8 @@ public:
 	int getY();
 
 	Cell(int x, int y);
+
+    Cell();
 };
 
 #endif

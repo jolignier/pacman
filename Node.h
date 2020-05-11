@@ -1,15 +1,26 @@
 #ifndef NODE_H
 #define NODE_H
 
+#include <stdlib.h>
+#include <vector>
+#include "Graphe.h"
+#include "Cell.h"
+
+using namespace std;
+
 class Node {
 
 private:
-	std::vector<Node> neighbors;
-	Graphe graphe;
+    vector<Node> neighbors;
+    //Graphe graphe;
 	Cell linkedCell;
 
 public:
-	Node(Graphe g, cell c);
+    Node();
+
+    //Node(Graphe g, Cell c);
+
+    Node(const Node& n);
 
 	void addNeighbour(Cell c);
 

@@ -1,6 +1,10 @@
 #ifndef EDIBLE_H
 #define EDIBLE_H
 
+#include <stdlib.h>
+
+using namespace std;
+
 class Edible {
 
 private:

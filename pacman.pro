@@ -16,39 +16,31 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    Astar.cpp \
-    Board.cpp \
-    Cell.cpp \
-    Character.cpp \
-    Edible.cpp \
-    Game.cpp \
-    Ghost.cpp \
-    Graphe.cpp \
-    Menu.cpp \
-    Node.cpp \
-    Player.cpp \
-    Score.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    menu.cpp
 
 HEADERS += \
-	Astar.h \
-    Board.h \
-    Cell.h \
-    Character.h \
-    Edible.h \
-    Game.h \
-    Ghost.h \
-    Graphe.h \
-    Menu.h \
-    Node.h \
-    Player.h \
-    Score.h \
-    mainwindow.h
+    mainwindow.h \
+    menu.h
 	
 
 FORMS += \
-    mainwindow.ui
+    gameWindow.ui \
+    mainwindow.ui \
+    menu.ui
+
+# Default rules for deployment.
+qnx: target.path = /tmp/$${TARGET}/bin
+else: unix:!android: target.path = /opt/$${TARGET}/bin
+!isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources.qrc
+
+
+FORMS += \
+    gameWindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

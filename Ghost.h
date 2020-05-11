@@ -1,18 +1,23 @@
 #ifndef GHOST_H
 #define GHOST_H
 
+#include <stdlib.h>
+#include "Character.h"
+
+using namespace std;
+
 class Ghost : Character {
 
 private:
-	boolean affraid;
-	boolean chasing;
+    bool affraid;
+    bool chasing;
 
 public:
 	Ghost();
 
-	boolean isAffraid();
+    bool isAffraid();
 
-	boolean isChasing();
+    bool isChasing();
 };
 
 #endif
