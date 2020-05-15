@@ -7,5 +7,7 @@
         <file alias="emulogic">resources/fonts/emulogic.ttf</file>
     </qresource>
     <qresource prefix="/sounds"/>
-    <qresource prefix="/styles"/>
+    <qresource prefix="/scores">
+        <file alias="scores_list">resources/scores/scores_list.txt</file>
+    </qresource>
 </RCC>

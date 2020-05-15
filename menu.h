@@ -23,6 +23,7 @@ private slots:
 
 private:
     Ui::Menu *ui;    
+    QList<QPair<int, QString>>* retrieveScores();
 };
 
 #endif // Menu_H
