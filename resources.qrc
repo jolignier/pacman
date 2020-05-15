@@ -1,7 +1,7 @@
 <RCC>
     <qresource prefix="/images">
         <file alias="menu_bg">resources/images/menu_background.png</file>
-        <file alias="kb_arrows">resources/images/Keyboard_White_Arrows.png</file>
+        <file alias="kb_arrows">resources/images/kb_arrows.png</file>
     </qresource>
     <qresource prefix="/fonts">
         <file alias="emulogic">resources/fonts/emulogic.ttf</file>

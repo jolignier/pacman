@@ -30,15 +30,21 @@ void Menu::displayHelp() {
 
 void Menu::displayHighScores() {    
     this->ui->stackedWidget->setCurrentIndex(2);
+    ui->highScoresList->clear();
     QList<QPair<int, QString>>* scores = retrieveScores();
     for(int i=0; i<scores->size(); i++) {
         QTreeWidgetItem *item = new QTreeWidgetItem(ui->highScoresList);
         item->setText(0,QString::number(i+1));
         item->setText(1,scores->at(i).second);
         item->setText(2,QString::number(scores->at(i).first));
+        item->setTextAlignment(0, Qt::AlignHCenter | Qt::AlignVCenter);
+        item->setTextAlignment(1, Qt::AlignHCenter | Qt::AlignVCenter);
+        item->setTextAlignment(2, Qt::AlignHCenter | Qt::AlignVCenter);
     }
-    for(int i = 0; i < 3; i++)
+    for(int i = 1; i < 3; i++) {
+        ui->highScoresList->header()->setSectionResizeMode(i,QHeaderView::Stretch);
         ui->highScoresList->resizeColumnToContents(i);
+    }
 }
 
 void Menu::displayMainMenu() {
