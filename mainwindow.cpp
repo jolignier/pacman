@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include "menu.h"
+#include "game.h"
 #include <QFontDatabase>
 #include <QDebug>
 #include <QFile>
@@ -24,7 +25,9 @@ MainWindow::~MainWindow()
 }
 
 void MainWindow::play() {
-    qDebug() << "play";
+    this->setCentralWidget(new Game());
+    this->centralWidget()->show();
+    qobject_cast<Game*>(this->centralWidget())->newGame();
 }
 
 void MainWindow::displayMainMenu() {

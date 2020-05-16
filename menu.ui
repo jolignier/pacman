@@ -2,18 +2,27 @@
 <ui version="4.0">
  <class>Menu</class>
  <widget class="QWidget" name="Menu">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
     <width>700</width>
-    <height>772</height>
+    <height>800</height>
    </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
   </property>
   <property name="minimumSize">
    <size>
-    <width>700</width>
-    <height>700</height>
+    <width>600</width>
+    <height>800</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -81,7 +90,7 @@ QWidget#Menu {
    <item>
     <widget class="QLabel" name="title">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
@@ -89,7 +98,7 @@ QWidget#Menu {
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>150</height>
+       <height>0</height>
       </size>
      </property>
      <property name="text">
@@ -130,7 +139,7 @@ QWidget#Menu {
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="minimumSize">
       <size>
-       <width>700</width>
+       <width>600</width>
        <height>475</height>
       </size>
      </property>
@@ -525,7 +534,7 @@ QHeaderView::section {
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>100</width>
+           <width>75</width>
            <height>20</height>
           </size>
          </property>
@@ -538,7 +547,7 @@ QHeaderView::section {
          </property>
          <property name="sizeHint" stdset="0">
           <size>
-           <width>100</width>
+           <width>75</width>
            <height>20</height>
           </size>
          </property>
@@ -709,8 +718,8 @@ QHeaderView::section {
    <slot>displayMainMenu()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>40</x>
-     <y>52</y>
+     <x>58</x>
+     <y>354</y>
     </hint>
     <hint type="destinationlabel">
      <x>7</x>
@@ -725,8 +734,8 @@ QHeaderView::section {
    <slot>displayMainMenu()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>34</x>
-     <y>43</y>
+     <x>43</x>
+     <y>336</y>
     </hint>
     <hint type="destinationlabel">
      <x>6</x>
@@ -741,8 +750,8 @@ QHeaderView::section {
    <slot>play()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>273</x>
-     <y>336</y>
+     <x>219</x>
+     <y>356</y>
     </hint>
     <hint type="destinationlabel">
      <x>3</x>
@@ -757,8 +766,8 @@ QHeaderView::section {
    <slot>displayHelp()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>458</x>
-     <y>456</y>
+     <x>219</x>
+     <y>361</y>
     </hint>
     <hint type="destinationlabel">
      <x>694</x>
@@ -773,8 +782,8 @@ QHeaderView::section {
    <slot>displayHighScores()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>246</x>
-     <y>597</y>
+     <x>219</x>
+     <y>366</y>
     </hint>
     <hint type="destinationlabel">
      <x>5</x>
