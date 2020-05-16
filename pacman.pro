@@ -17,7 +17,6 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     board.cpp \
-    cell.cpp \
     game.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -25,7 +24,6 @@ SOURCES += \
 
 HEADERS += \
     board.h \
-    cell.h \
     game.h \
     mainwindow.h \
     menu.h
