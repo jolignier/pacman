@@ -2,8 +2,8 @@
 #define PLAYER_H
 
 #include <stdlib.h>
-#include "Direction.h"
-#include "Character.h"
+#include "direction.h"
+#include "character.h"
 
 using namespace std;
 
@@ -14,7 +14,7 @@ private:
 	Direction futureDirection;
 
 public:
-	Player();
+    Player(QObject *parent, double x, double y);
 
 	int getNbLife();
 

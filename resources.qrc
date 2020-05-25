@@ -10,4 +10,10 @@
     <qresource prefix="/scores">
         <file alias="scores_list">resources/scores/scores_list.txt</file>
     </qresource>
+    <qresource prefix="/sprites/inky">
+        <file alias="inky_down">resources/sprites/inky/down.png</file>
+        <file alias="inky_left">resources/sprites/inky/left.png</file>
+        <file alias="inky_right">resources/sprites/inky/right.png</file>
+        <file alias="inky_up">resources/sprites/inky/up.png</file>
+    </qresource>
 </RCC>

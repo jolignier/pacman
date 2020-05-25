@@ -8,9 +8,11 @@
 #include <QGraphicsRectItem>
 #include <QFrame>
 #include <QDebug>
+#include <QTimer>
 #include <QResizeEvent>
 
 #include "board.h"
+#include "character.h"
 
 namespace Ui {
 class Game;
@@ -32,12 +34,18 @@ public:
     void displayBoard(int cell_width, int cell_height);
     void newGame();
 
+public slots:
+    void update();
+
 private:
     Ui::Game *ui;
 
     bool playing;
     Board board;
     QGraphicsScene* scene;
+    QTimer* timer;
+
+    Character* inky;
 };
 
 #endif

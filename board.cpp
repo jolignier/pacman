@@ -34,11 +34,40 @@ int Board::getNbColumns() {
 }
 
 bool Board::isWall(int x, int y) {
-    return (board[x][y] == 1);
+    return (board[x][y] == 1 || board[x][y] == 4);
+}
+
+bool Board::isPlayer(int x, int y) {
+    return (board[x][y] == 5);
 }
 
 bool Board::isGhost(int x, int y) {
     return (board[x][y] > 5);
+}
+
+bool Board::isBlinky(int x, int y) {
+    return (board[x][y] == 6);
+}
+
+bool Board::isPinky(int x, int y) {
+    return (board[x][y] == 7);
+}
+
+bool Board::isInky(int x, int y) {
+    return (board[x][y] == 8);
+}
+
+bool Board::isClyde(int x, int y) {
+    return (board[x][y] == 9);
+}
+
+bool Board::isIntersection(int x, int y) {
+    int nbPaths = 0;
+    if (!isWall(x-1,y)) nbPaths++;
+    if (!isWall(x+1,y)) nbPaths++;
+    if (!isWall(x,y-1)) nbPaths++;
+    if (!isWall(x,y+1)) nbPaths++;
+    return (nbPaths >=3);
 }
 
 void Board::countGums() {

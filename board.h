@@ -11,8 +11,16 @@ public:
     int getNbLines();
     int getNbColumns();
     int getCell(int x, int y);
+
     bool isWall(int x, int y);
+    bool isPlayer(int x, int y);
     bool isGhost(int x, int y);
+    bool isBlinky(int x, int y);
+    bool isPinky(int x, int y);
+    bool isInky(int x, int y);
+    bool isClyde(int x, int y);
+    bool isIntersection(int x, int y);
+
 	int getGumsNumber();
 	void newFruit();
     void countGums();

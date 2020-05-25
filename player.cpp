@@ -1,8 +1,9 @@
-#include "Player.h"
+#include "player.h"
 
-Player::Player() {
-	// TODO - implement Player::Player
-	throw "Not yet implemented";
+Player::Player(QObject *parent, double x, double y) :
+    Character(parent, x, y, new QPixmap(":inky_up"))
+{
+
 }
 
 int Player::getNbLife() {

@@ -17,16 +17,21 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     board.cpp \
+    character.cpp \
     game.cpp \
     main.cpp \
     mainwindow.cpp \
-    menu.cpp
+    menu.cpp \
+    player.cpp
 
 HEADERS += \
     board.h \
+    character.h \
+    direction.h \
     game.h \
     mainwindow.h \
-    menu.h
+    menu.h \
+    player.h
 	
 
 FORMS += \
