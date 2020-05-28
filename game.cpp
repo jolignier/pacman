@@ -49,8 +49,8 @@ void Game::newGame() {
 }
 
 void Game::displayBoard(int cell_width, int cell_height) {
-    for (int i=0; i< Board::nbLines; i++) {
-        for (int j=0; j< Board::nbColumns; j++) {
+    for (int i=0; i< Board::nbColumns; i++) {
+        for (int j=0; j< Board::nbLines; j++) {
 
             if (board.isWall(i,j)) {
                 int x=i*cell_height; int y=j*cell_width;

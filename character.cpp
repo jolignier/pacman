@@ -52,7 +52,6 @@ void Character::move() {
         case LEFT:{
             int boardX = (pos().x()-speed) / Board::wallSize;
             int boardY = pos().y() / Board::wallSize;
-            qDebug() << boardX;
             if (!Board::isWall(boardX, boardY))
                 setPos(pos().x()-speed, pos().y());
             break;
