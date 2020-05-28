@@ -17,11 +17,9 @@ public:
     Player(QObject *parent, double x, double y);
 
 	int getNbLife();
-
 	void setNbLife(int nbLife);
 
 	Direction getFutureDirection();
-
 	void setFutureDirection(Direction futureDirection);
 };
 

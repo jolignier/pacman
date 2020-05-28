@@ -3,7 +3,9 @@
 Player::Player(QObject *parent, double x, double y) :
     Character(parent, x, y, new QPixmap(":inky_up"))
 {
-
+    this->nbLife = 1;
+    this->setDirection(LEFT);
+    this->setFutureDirection(NONE);
 }
 
 int Player::getNbLife() {

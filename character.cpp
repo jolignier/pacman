@@ -33,19 +33,37 @@ void Character::setDirection(Direction direction) {
 }
 
 void Character::move() {
+
     switch (direction) {
-        case UP:
-            setPos(pos().x(), pos().y()-speed);
+        case UP: {
+            int boardX = pos().x() / Board::wallSize;
+            int boardY = (pos().y()-speed) / Board::wallSize;
+            if (!Board::isWall(boardX, boardY))
+                setPos(pos().x(), pos().y()-speed);
             break;
-        case DOWN:
-            setPos(pos().x(), pos().y()+speed);
+        }
+        case DOWN:{
+            int boardX = pos().x() / Board::wallSize;
+            int boardY = (pos().y()+speed) / Board::wallSize;
+            if (!Board::isWall(boardX, boardY))
+                setPos(pos().x(), pos().y()+speed);
             break;
-        case LEFT:
-            setPos(pos().x()-speed, pos().y());
+        }
+        case LEFT:{
+            int boardX = (pos().x()-speed) / Board::wallSize;
+            int boardY = pos().y() / Board::wallSize;
+            qDebug() << boardX;
+            if (!Board::isWall(boardX, boardY))
+                setPos(pos().x()-speed, pos().y());
             break;
-        case RIGHT:
-            setPos(pos().x()+speed, pos().y());
+        }
+        case RIGHT:{
+            int boardX = (pos().x()+speed) / Board::wallSize;
+            int boardY = pos().y() / Board::wallSize;
+            if (!Board::isWall(boardX, boardY))
+                setPos(pos().x()+speed, pos().y());
             break;
+        }
     }
 }
 

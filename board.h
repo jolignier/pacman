@@ -8,28 +8,23 @@ class Board {
 
 public:
     Board();
-    int getNbLines();
-    int getNbColumns();
     int getCell(int x, int y);
 
-    bool isWall(int x, int y);
+    static bool isWall(int x, int y);
+    static bool isIntersection(int x, int y);
+
     bool isPlayer(int x, int y);
     bool isGhost(int x, int y);
     bool isBlinky(int x, int y);
     bool isPinky(int x, int y);
     bool isInky(int x, int y);
     bool isClyde(int x, int y);
-    bool isIntersection(int x, int y);
 
-	int getGumsNumber();
-	void newFruit();
-    void countGums();
+    static const int nbLines = 31;
+    static const int nbColumns = 28;
+    static const int wallSize = 21;
 
-private:
-    int nbLines = 31;
-    int nbColumns = 28;
-    int nbGums = -1;
-    int board[31][28] = {
+    static constexpr int board[31][28] = {
         {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
         {1,2,2,2,2,2,2,2,2,2,2,2,2,1,1,2,2,2,2,2,2,2,2,2,2,2,2,1},
         {1,2,1,1,1,1,2,1,1,1,1,1,2,1,1,2,1,1,1,1,1,2,1,1,1,1,2,1},
@@ -44,7 +39,7 @@ private:
         {0,0,0,0,0,1,2,1,1,0,0,0,0,0,0,0,0,0,0,1,1,2,1,0,0,0,0,0},  // 7 = Pinky  le fantome rose
         {0,0,0,0,0,1,2,1,1,0,1,1,1,4,4,1,1,1,0,1,1,2,1,0,0,0,0,0},  // 8 = Inky   le fantome bleu
         {1,1,1,1,1,1,2,1,1,0,1,0,0,0,0,0,0,1,0,1,1,2,1,1,1,1,1,1},  // 9 = Clyde  le fantome orange
-        {0,0,0,0,0,0,2,0,0,0,1,0,6,7,8,9,0,1,0,0,0,2,0,0,0,0,0,0},
+       {10,0,0,0,0,0,2,0,0,0,1,0,6,7,8,9,0,1,0,0,0,2,0,0,0,0,0,10},  // 10 = teleporteur
         {1,1,1,1,1,1,2,1,1,0,1,0,0,0,0,0,0,1,0,1,1,2,1,1,1,1,1,1},
         {0,0,0,0,0,1,2,1,1,0,1,1,1,1,1,1,1,1,0,1,1,2,1,0,0,0,0,0},
         {0,0,0,0,0,1,2,1,1,0,0,0,0,0,0,0,0,0,0,1,1,2,1,0,0,0,0,0},

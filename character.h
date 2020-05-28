@@ -9,6 +9,7 @@
 #include <QPainter>
 
 #include "direction.h"
+#include "board.h"
 
 using namespace std;
 
@@ -19,7 +20,7 @@ private:
 	double speed;
 	Direction direction;
     int currentFrame;
-    const int frameShift = 21;
+    const int frameShift = Board::wallSize;
 
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget *widget);
     QRectF boundingRect() const;

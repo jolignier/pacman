@@ -42,31 +42,31 @@ void Game::displayMenu() {
 }
 
 void Game::newGame() {
-    int cell_width = ui->scene->width() / board.getNbColumns();
-    int cell_height = ui->scene->height() / board.getNbLines();
+    int cell_width = ui->scene->width() / Board::nbColumns;
+    int cell_height = ui->scene->height() / Board::nbLines;
     displayBoard(cell_width, cell_height);
     this->connect(timer, SIGNAL(timeout()), this, SLOT(update()));
 }
 
 void Game::displayBoard(int cell_width, int cell_height) {
-    for (int i=0; i< board.getNbLines(); i++) {
-        for (int j=0; j< board.getNbColumns(); j++) {
+    for (int i=0; i< Board::nbLines; i++) {
+        for (int j=0; j< Board::nbColumns; j++) {
 
             if (board.isWall(i,j)) {
-                int y=i*cell_height; int x = j*cell_width;
+                int x=i*cell_height; int y=j*cell_width;
                 QGraphicsRectItem* item = new QGraphicsRectItem(x,y,cell_width,cell_height);
                 item->setBrush(QBrush(QColor(255,153,204)));
                 this->scene->addItem(item);
 
             } else if (board.isInky(i,j)) {
-                int y=i*cell_height; int x = j*cell_width;
+                int x=i*cell_height; int y=j*cell_width;
                 QPixmap* sprite = new QPixmap(":/sprites/inky/inky_up");
                 inky = new Character(this, x, y, sprite);
                 inky->setZValue(1);
                 this->scene->addItem(inky);
 
             } else if (board.isPlayer(i,j)) {
-                int y=i*cell_height; int x = j*cell_width;
+                int x=i*cell_height; int y=j*cell_width;
                 QPixmap* sprite = new QPixmap(":/sprites/inky/inky_up");
                 inky = new Character(this, x, y, sprite);
                 inky->setZValue(1);
