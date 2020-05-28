@@ -10,7 +10,7 @@ Game::Game(QWidget *parent) :
     ui->setupUi(this);
     ui->scene->setScene(scene);
     this->timer = new QTimer();
-    this->timer->start(50);
+    this->timer->start(35);
 }
 
 Game::~Game()
@@ -42,35 +42,38 @@ void Game::displayMenu() {
 }
 
 void Game::newGame() {
-    int cell_width = ui->scene->width() / Board::nbColumns;
-    int cell_height = ui->scene->height() / Board::nbLines;
-    displayBoard(cell_width, cell_height);
+    displayBoard();
     this->connect(timer, SIGNAL(timeout()), this, SLOT(update()));
 }
 
-void Game::displayBoard(int cell_width, int cell_height) {
+void Game::displayBoard() {
     for (int i=0; i< Board::nbColumns; i++) {
         for (int j=0; j< Board::nbLines; j++) {
 
             if (board.isWall(i,j)) {
-                int x=i*cell_height; int y=j*cell_width;
-                QGraphicsRectItem* item = new QGraphicsRectItem(x,y,cell_width,cell_height);
+                int x=i*Board::wallSize; int y=j*Board::wallSize;
+                QGraphicsRectItem* item = new QGraphicsRectItem(x,y,Board::wallSize,Board::wallSize);
                 item->setBrush(QBrush(QColor(255,153,204)));
                 this->scene->addItem(item);
 
             } else if (board.isInky(i,j)) {
-                int x=i*cell_height; int y=j*cell_width;
+                int x=i*Board::wallSize; int y=j*Board::wallSize;
                 QPixmap* sprite = new QPixmap(":/sprites/inky/inky_up");
                 inky = new Character(this, x, y, sprite);
                 inky->setZValue(1);
                 this->scene->addItem(inky);
 
             } else if (board.isPlayer(i,j)) {
-                int x=i*cell_height; int y=j*cell_width;
-                QPixmap* sprite = new QPixmap(":/sprites/inky/inky_up");
-                inky = new Character(this, x, y, sprite);
-                inky->setZValue(1);
-                this->scene->addItem(inky);
+                int x=i*Board::wallSize; int y=j*Board::wallSize;
+                player = new Player(this, x, y);
+                player->setZValue(1);
+                this->scene->addItem(player);
+
+            } else if (board.isIntersection(i,j)) {
+                int x=i*Board::wallSize; int y=j*Board::wallSize;
+                QGraphicsRectItem* item = new QGraphicsRectItem(x,y,Board::wallSize,Board::wallSize);
+                item->setBrush(QBrush(QColor(0,200,50)));
+                this->scene->addItem(item);
             }
         }
     }
@@ -78,5 +81,10 @@ void Game::displayBoard(int cell_width, int cell_height) {
 
 void Game::update() {
     inky->nextFrame();
+    player->nextFrame();
     ui->scene->update();
+}
+
+void Game::keyPressEvent(QKeyEvent *event) {
+    this->player->keyPressEvent(event);
 }

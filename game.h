@@ -13,6 +13,7 @@
 
 #include "board.h"
 #include "character.h"
+#include "player.h"
 
 namespace Ui {
 class Game;
@@ -31,8 +32,10 @@ public:
 	void win();
 	void lose();
 	void displayMenu();
-    void displayBoard(int cell_width, int cell_height);
+    void displayBoard();
     void newGame();
+
+    void keyPressEvent(QKeyEvent *event);
 
 public slots:
     void update();
@@ -46,6 +49,7 @@ private:
     QTimer* timer;
 
     Character* inky;
+    Player* player;
 };
 
 #endif

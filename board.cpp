@@ -47,10 +47,9 @@ bool Board::isClyde(int x, int y) {
 }
 
 bool Board::isIntersection(int x, int y) {
-    int nbPaths = 0;
-    if (!isWall(x-1,y)) nbPaths++;
-    if (!isWall(x+1,y)) nbPaths++;
-    if (!isWall(x,y-1)) nbPaths++;
-    if (!isWall(x,y+1)) nbPaths++;
-    return (nbPaths >=3);
+    for (int i=0; i<32; i++) {
+        if (intersections[i][0] == x && intersections[i][1] == y)
+            return true;
+    }
+    return false;
 }

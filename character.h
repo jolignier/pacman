@@ -20,13 +20,14 @@ private:
 	double speed;
 	Direction direction;
     int currentFrame;
-    const int frameShift = Board::wallSize;
+    int size;
+
 
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget *widget);
     QRectF boundingRect() const;
 
 public:
-    Character(QObject *parent, double x, double y, QPixmap* sprite, double speed=5, Direction dir=LEFT);
+    Character(QObject *parent, double x, double y, QPixmap* sprite, double speed=3, Direction dir=LEFT, int size=20);
 
     QPixmap* getSprite();
     void setSprite(QPixmap* sprite);

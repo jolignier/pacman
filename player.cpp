@@ -1,10 +1,9 @@
 #include "player.h"
 
 Player::Player(QObject *parent, double x, double y) :
-    Character(parent, x, y, new QPixmap(":inky_up"))
+    Character(parent, x, y, new QPixmap(":/sprites/player/pac"))
 {
-    this->nbLife = 1;
-    this->setDirection(LEFT);
+    this->nbLife = 3;
     this->setFutureDirection(NONE);
 }
 
@@ -22,4 +21,21 @@ Direction Player::getFutureDirection() {
 
 void Player::setFutureDirection(Direction futureDirection) {
 	this->futureDirection = futureDirection;
+}
+
+void Player::keyPressEvent(QKeyEvent *event){
+    switch(event->key()){
+        case Qt::Key_Up:
+            setDirection(UP);
+            break;
+        case Qt::Key_Down:
+            setDirection(DOWN);
+            break;
+        case Qt::Key_Left:
+            setDirection(LEFT);
+            break;
+        case Qt::Key_Right:
+            setDirection(RIGHT);
+            break;
+    }
 }

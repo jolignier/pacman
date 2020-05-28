@@ -28,6 +28,7 @@ void MainWindow::play() {
     this->setCentralWidget(new Game());
     this->centralWidget()->show();
     qobject_cast<Game*>(this->centralWidget())->newGame();
+    this->centralWidget()->setFocus();
 }
 
 void MainWindow::displayMainMenu() {

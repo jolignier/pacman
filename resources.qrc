@@ -16,4 +16,7 @@
         <file alias="inky_right">resources/sprites/inky/right.png</file>
         <file alias="inky_up">resources/sprites/inky/up.png</file>
     </qresource>
+    <qresource prefix="/sprites/player">
+        <file alias="pac">resources/sprites/pac/move.png</file>
+    </qresource>
 </RCC>
