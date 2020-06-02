@@ -1,17 +1,32 @@
 #ifndef MENU_H
 #define MENU_H
 
-class Menu {
+#include <QFrame>
+#include <scoremanager.h>
 
+namespace Ui {
+class Menu;
+}
+
+class Menu : public QFrame
+{
+    Q_OBJECT
 
 public:
-	Menu();
+    explicit Menu(QWidget *parent = nullptr);
+    ~Menu();
 
-	void displayHighScores();
+private slots:
+    void play();
+    void displayHelp();
+    void displayHighScores();
+    void displayMainMenu();
 
-	void displayOptions();
+    void updateScores();
 
-	void play();
+private:
+    Ui::Menu *ui;
+    ScoreManager* scoreManager;
 };
 
-#endif
+#endif // Menu_H

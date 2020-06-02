@@ -1,4 +1,5 @@
-QT       += core gui
+QT += core gui
+QT += network
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -22,7 +23,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     menu.cpp \
-    player.cpp
+    player.cpp \
+    scoremanager.cpp
 
 HEADERS += \
     board.h \
@@ -31,25 +33,16 @@ HEADERS += \
     game.h \
     mainwindow.h \
     menu.h \
-    player.h
+    player.h \
+    scoremanager.h
 	
-
 FORMS += \
     game.ui \
     mainwindow.ui \
     menu.ui
 
-# Default rules for deployment.
-qnx: target.path = /tmp/$${TARGET}/bin
-else: unix:!android: target.path = /opt/$${TARGET}/bin
-!isEmpty(target.path): INSTALLS += target
-
 RESOURCES += \
     resources.qrc
-
-
-FORMS += \
-    game.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -2,6 +2,7 @@
 #define MENU_H
 
 #include <QFrame>
+#include <scoremanager.h>
 
 namespace Ui {
 class Menu;
@@ -21,9 +22,11 @@ private slots:
     void displayHighScores();
     void displayMainMenu();
 
+    void updateScores();
+
 private:
-    Ui::Menu *ui;    
-    QList<QPair<int, QString>>* retrieveScores();
+    Ui::Menu *ui;
+    ScoreManager* scoreManager;
 };
 
 #endif // Menu_H
