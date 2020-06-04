@@ -117,12 +117,27 @@ QWidget#Game {
          </property>
          <property name="minimumSize">
           <size>
-           <width>600</width>
+           <width>620</width>
            <height>0</height>
           </size>
          </property>
+         <property name="maximumSize">
+          <size>
+           <width>620</width>
+           <height>16777215</height>
+          </size>
+         </property>
+         <property name="verticalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarAlwaysOff</enum>
+         </property>
          <property name="sizeAdjustPolicy">
           <enum>QAbstractScrollArea::AdjustIgnored</enum>
+         </property>
+         <property name="interactive">
+          <bool>true</bool>
          </property>
         </widget>
        </item>

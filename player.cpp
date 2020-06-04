@@ -1,5 +1,7 @@
 #include "player.h"
 
+#include <QDebug>
+
 Player::Player(QObject *parent, double x, double y) :
     Character(parent, x, y, new QPixmap(":/sprites/player/pac"))
 {
@@ -26,16 +28,31 @@ void Player::setFutureDirection(Direction futureDirection) {
 void Player::keyPressEvent(QKeyEvent *event){
     switch(event->key()){
         case Qt::Key_Up:
-            setDirection(UP);
+            setFutureDirection(UP);
             break;
         case Qt::Key_Down:
-            setDirection(DOWN);
+            setFutureDirection(DOWN);
             break;
         case Qt::Key_Left:
-            setDirection(LEFT);
+            setFutureDirection(LEFT);
             break;
         case Qt::Key_Right:
-            setDirection(RIGHT);
+            setFutureDirection(RIGHT);
             break;
+    }
+}
+
+void Player::nextFrame(){
+    this->applyFutureDirection();
+    Character::nextFrame();
+
+}
+
+void Player::applyFutureDirection() {
+    if (futureDirection != NONE){
+        if (canMove(futureDirection)){
+            setDirection(futureDirection);
+            setFutureDirection(NONE);
+        }
     }
 }

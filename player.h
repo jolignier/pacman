@@ -23,7 +23,8 @@ public:
 
 	Direction getFutureDirection();
 	void setFutureDirection(Direction futureDirection);
-
+    void nextFrame();
+    void applyFutureDirection();
     void keyPressEvent(QKeyEvent *event);
 };
 

@@ -34,6 +34,7 @@ public:
 	void setSpeed(double speed);
 	Direction getDirection();
 	void setDirection(Direction direction);
+    bool canMove(Direction dir);
     void move();
     void nextFrame();
 
