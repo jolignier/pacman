@@ -5,13 +5,15 @@
 
 class Board {
 
-
 public:
     Board();
     int getCell(int x, int y);
 
     static bool isWall(int x, int y);
     static bool isIntersection(int x, int y);
+
+    bool isGum(int x, int y);
+    bool isSuperGum(int x, int y);
 
     bool isPlayer(int x, int y);
     bool isGhost(int x, int y);
@@ -25,16 +27,16 @@ public:
     static const int wallSize = 21;
 
     static constexpr int intersections[32][2] = {
-        {1,5},
-        {3,26},
-        {6,1}, {6,5}, {6,8}, {6,14}, {6,20}, {6,23},
-        {9,5}, {9,14}, {9,17}, {9,20}, {9,23},
-        {12,5}, {12,23}, {12,29},
-        {15,5}, {15,23}, {15,29},
-        {18,5}, {18,14}, {18,17}, {18,20}, {18,23},
-        {21,1}, {21,5}, {21,8}, {21,14}, {21,20}, {21,23},
-        {24,26},
-        {26,5}
+        {2,5},
+        {4,26},
+        {7,1}, {7,5}, {7,8}, {7,14}, {7,20}, {7,23},
+        {10,5}, {10,14}, {10,17}, {10,20}, {10,23},
+        {13,5}, {13,23}, {13,29},
+        {16,5}, {16,23}, {16,29},
+        {19,5}, {19,14}, {19,17}, {19,20}, {19,23},
+        {22,1}, {22,5}, {22,8}, {22,14}, {22,20}, {22,23},
+        {25,26},
+        {27,5}
     };
 
     static constexpr int board[31][30] = {
