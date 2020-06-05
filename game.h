@@ -16,6 +16,8 @@
 #include "player.h"
 #include "gum.h"
 #include "superGum.h"
+#include "scoremanager.h"
+#include <QVector>
 
 namespace Ui {
 class Game;
@@ -49,7 +51,9 @@ private:
     Board board;
     QGraphicsScene* scene;
     QTimer* timer;
+    QVector<Gums*> gums;
 
+    ScoreManager* score;
     Inky* inky;
     Player* player;
 };

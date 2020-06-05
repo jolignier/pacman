@@ -2,7 +2,7 @@
 #define MENU_H
 
 #include <QFrame>
-#include <scoremanager.h>
+#include "scoremanager.h"
 
 namespace Ui {
 class Menu;

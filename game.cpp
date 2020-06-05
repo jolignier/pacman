@@ -1,6 +1,7 @@
 #include "game.h"
 #include "ui_game.h"
 #include "mainwindow.h"
+#include <QDebug>
 
 Game::Game(QWidget *parent) :
     QFrame(parent),
@@ -11,6 +12,8 @@ Game::Game(QWidget *parent) :
     ui->scene->setScene(scene);
     this->timer = new QTimer();
     this->timer->start(35);
+    score = new ScoreManager(parent);
+    gums = QVector<Gums*>();
 }
 
 Game::~Game()
@@ -67,30 +70,46 @@ void Game::displayBoard() {
                 int x=i*Board::wallSize; int y=j*Board::wallSize;
                 QGraphicsRectItem* item = new QGraphicsRectItem(x,y,Board::wallSize,Board::wallSize);
                 item->setBrush(QBrush(QColor(0,200,50)));
-                item->setZValue(2);
+                item->setZValue(1);
                 this->scene->addItem(item);
 
             }
-            if (board.isGum(i,j)) {
+            if (board.isGum(i, j)) {
                 int x=i*Board::wallSize; int y=j*Board::wallSize;
-                Gum* gum = new Gum(x, y, Board::wallSize, this);
-                gum->setZValue(1);
+                Gum *gum = new Gum(x, y, Board::wallSize, this);
+                gum->setZValue(2);
+                gums.push_back(gum);
                 this->scene->addItem(gum);
 
             } else if (board.isSuperGum(i, j)) {
                 int x=i*Board::wallSize; int y=j*Board::wallSize;
                 SuperGum* supGum = new SuperGum(x, y, Board::wallSize, this);
-                supGum->setZValue(1);
+                supGum->setZValue(2);
+                gums.push_back(supGum);
                 this->scene->addItem(supGum);
             }
         }
     }
 }
 
+
+
 void Game::update() {    
     player->nextFrame();
     inky->nextFrame();
     ui->scene->update();
+    for (Gums* iter : gums) {
+
+        if (player->collidesWithItem(iter)) {
+            score->addPoints(iter->getPoints());
+            this->scene->removeItem(iter);
+        } else if (player->collidesWithItem(iter)) {
+            score->addPoints(iter->getPoints());
+            this->scene->removeItem(iter);
+
+        }
+        qInfo() << score->getCurrentScore();
+    }
 }
 
 void Game::keyPressEvent(QKeyEvent *event) {

@@ -2,6 +2,7 @@
 #define GUMS_H
 
 #include "edible.h"
+#include "player.h"
 
 class Gums : public Edible {
 
