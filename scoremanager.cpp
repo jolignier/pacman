@@ -5,6 +5,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QJsonArray>
+#include <QMessageBox>
 
 
 ScoreManager::ScoreManager(QObject *parent):
@@ -81,17 +82,21 @@ void ScoreManager::retrieveScores() {
 
 void ScoreManager::onGetResult(QNetworkReply* reply){
 
-    QByteArray data = reply->readAll();
-    QJsonDocument document = QJsonDocument::fromJson(data);
+    if (reply->error() == QNetworkReply::NoError) {
+        QByteArray data = reply->readAll();
+        QJsonDocument document = QJsonDocument::fromJson(data);
 
-    QJsonArray array = document.object().value("scores").toArray();
-    foreach(const QJsonValue &v, array){
-        QString score = v.toObject().value("score").toString();
-        int score_int = score.toInt();
-        QString name = v.toObject().value("name").toString();
+        QJsonArray array = document.object().value("scores").toArray();
+        foreach(const QJsonValue &v, array){
+            QString score = v.toObject().value("score").toString();
+            int score_int = score.toInt();
+            QString name = v.toObject().value("name").toString();
 
-        this->scores->append(QPair<int,QString>(score_int, name));
+            this->scores->append(QPair<int,QString>(score_int, name));
+        }
+    } else {
+        QMessageBox messageBox;
+        messageBox.critical(0, "An error occured while retrieving scores", reply->errorString());
     }
-
     emit scoresRetrieved();
 }
