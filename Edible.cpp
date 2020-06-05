@@ -1,21 +1,21 @@
-#include "Edible.h"
+#include "edible.h"
 
-void Edible::getPosX() {
-	// TODO - implement Edible::getPosX
-	throw "Not yet implemented";
+
+int Edible::getPoints() {
+    return this->points;
 }
 
-void Edible::getPosY() {
-	// TODO - implement Edible::getPosY
-	throw "Not yet implemented";
+QRectF Edible::boundingRect() const{
+    return QRectF(0,0,size,size);
 }
 
-void Edible::getPoints() {
-	// TODO - implement Edible::getPoints
-	throw "Not yet implemented";
+Edible::Edible(int x, int y, int s, int p, QObject *parent) :
+    QObject(parent), QGraphicsEllipseItem()
+{
+
+    this->setPos(x, y);
+    this->size = s;
+    this->points = p;
+
 }
 
-Edible::Edible(int x, int y, int p) {
-	// TODO - implement Edible::Edible
-	throw "Not yet implemented";
-}

@@ -1,7 +1,12 @@
 #ifndef GUM_H
 #define GUM_H
 
-class Gum : Gums {
+#include "gums.h"
+
+class Gum : public Gums {
+
+public:
+    Gum(int x, int y, int wallSize, QObject *parent);
 };
 
 #endif

@@ -14,6 +14,8 @@
 #include "board.h"
 #include "character.h"
 #include "player.h"
+#include "gum.h"
+#include "superGum.h"
 
 namespace Ui {
 class Game;

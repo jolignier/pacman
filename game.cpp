@@ -74,6 +74,16 @@ void Game::displayBoard() {
                 QGraphicsRectItem* item = new QGraphicsRectItem(x,y,Board::wallSize,Board::wallSize);
                 item->setBrush(QBrush(QColor(0,200,50)));
                 this->scene->addItem(item);
+
+            } else if (board.isGum(i,j)) {
+                int x=i*Board::wallSize; int y=j*Board::wallSize;
+                Gum* gum = new Gum(x, y, Board::wallSize, this);
+                this->scene->addItem(gum);
+
+            } else if (board.isSuperGum(i, j)) {
+                int x=i*Board::wallSize; int y=j*Board::wallSize;
+                SuperGum* supGum = new SuperGum(x, y, Board::wallSize, this);
+                this->scene->addItem(supGum);
             }
         }
     }

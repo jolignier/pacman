@@ -24,7 +24,11 @@ SOURCES += \
     mainwindow.cpp \
     menu.cpp \
     player.cpp \
-    scoremanager.cpp
+    scoremanager.cpp \
+    edible.cpp \
+    gums.cpp \
+    gum.cpp \
+    superGum.cpp
 
 HEADERS += \
     board.h \
@@ -34,7 +38,11 @@ HEADERS += \
     mainwindow.h \
     menu.h \
     player.h \
-    scoremanager.h
+    scoremanager.h \
+    edible.h \
+    gums.h \
+    gum.h \
+    superGum.h
 	
 FORMS += \
     game.ui \

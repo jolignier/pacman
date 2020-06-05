@@ -22,6 +22,14 @@ bool Board::isWall(int x, int y) {
     return (board[y][x] == 1);
 }
 
+bool Board::isGum(int x, int y) {
+    return (board[y][x] == 2);
+}
+
+bool Board::isSuperGum(int x, int y) {
+    return (board[y][x] == 3);
+}
+
 bool Board::isPlayer(int x, int y) {
     return (board[y][x] == 5);
 }

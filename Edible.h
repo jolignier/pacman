@@ -2,25 +2,24 @@
 #define EDIBLE_H
 
 #include <stdlib.h>
+#include <QGraphicsItem>
+#include <QPainter>
 
 using namespace std;
 
-class Edible {
+class Edible : public QObject, public QGraphicsEllipseItem {
 
 private:
-	int sprite;
-	int posX;
-	int posY;
+
 	int points;
+    int size;
 
 public:
-	void getPosX();
 
-	void getPosY();
+    int getPoints();
+    QRectF boundingRect() const;
+    Edible(int x, int y, int s, int p, QObject *parent);
 
-	void getPoints();
-
-	Edible(int x, int y, int p);
 };
 
 #endif
