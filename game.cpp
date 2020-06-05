@@ -60,23 +60,27 @@ void Game::displayBoard() {
             } else if (board.isPlayer(i,j)) {
                 int x=i*Board::wallSize; int y=j*Board::wallSize;
                 player = new Player(this, x, y);
-                player->setZValue(1);
+                player->setZValue(3);
                 this->scene->addItem(player);
 
             } else if (board.isIntersection(i,j)) {
                 int x=i*Board::wallSize; int y=j*Board::wallSize;
                 QGraphicsRectItem* item = new QGraphicsRectItem(x,y,Board::wallSize,Board::wallSize);
                 item->setBrush(QBrush(QColor(0,200,50)));
+                item->setZValue(2);
                 this->scene->addItem(item);
 
-            } else if (board.isGum(i,j)) {
+            }
+            if (board.isGum(i,j)) {
                 int x=i*Board::wallSize; int y=j*Board::wallSize;
                 Gum* gum = new Gum(x, y, Board::wallSize, this);
+                gum->setZValue(1);
                 this->scene->addItem(gum);
 
             } else if (board.isSuperGum(i, j)) {
                 int x=i*Board::wallSize; int y=j*Board::wallSize;
                 SuperGum* supGum = new SuperGum(x, y, Board::wallSize, this);
+                supGum->setZValue(1);
                 this->scene->addItem(supGum);
             }
         }
