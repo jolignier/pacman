@@ -12,9 +12,9 @@ private:
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget *widget);
 
 public:
-
     Gums(int x, int y, int wallSize, int s, int p, QObject *parent, QColor color = QColor(255,255,255));
 
+    virtual void eaten();
 };
 
 #endif

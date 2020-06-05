@@ -8,6 +8,7 @@
 using namespace std;
 
 class Edible : public QObject, public QGraphicsEllipseItem {
+Q_OBJECT
 
 private:
 

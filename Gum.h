@@ -7,6 +7,7 @@ class Gum : public Gums {
 
 public:
     Gum(int x, int y, int wallSize, QObject *parent);
+    void eaten();
 };
 
 #endif

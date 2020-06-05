@@ -44,6 +44,8 @@ public:
 public slots:
     void update();
 
+    void superGumEaten();
+
 private:
     Ui::Game *ui;
 

@@ -15,3 +15,5 @@ void Gums::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWid
     Q_UNUSED(option);
     Q_UNUSED(widget);
 }
+
+void Gums::eaten(){};

@@ -99,19 +99,21 @@ void Game::update() {
     inky->nextFrame();
     ui->scene->update();
     for (Gums* iter : gums) {
-
         if (player->collidesWithItem(iter)) {
             score->addPoints(iter->getPoints());
             this->scene->removeItem(iter);
-        } else if (player->collidesWithItem(iter)) {
-            score->addPoints(iter->getPoints());
-            this->scene->removeItem(iter);
-
-        }
-        qInfo() << score->getCurrentScore();
+            gums.removeOne(iter);
+            iter->eaten();
+            break;
+        }        
     }
+    qInfo() << score->getCurrentScore();
 }
 
 void Game::keyPressEvent(QKeyEvent *event) {
     this->player->keyPressEvent(event);
+}
+
+void Game::superGumEaten(){
+    qDebug() << "SUPER GUM ATE";
 }
