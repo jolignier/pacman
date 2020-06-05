@@ -26,6 +26,8 @@ public:
     void nextFrame();
     void applyFutureDirection();
     void keyPressEvent(QKeyEvent *event);
+
+    void rotateSprite(Direction dir);
 };
 
 #endif

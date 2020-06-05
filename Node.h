@@ -3,8 +3,8 @@
 
 #include <stdlib.h>
 #include <vector>
-#include "Graphe.h"
-#include "Cell.h"
+
+#include <QPair>
 
 using namespace std;
 
@@ -13,16 +13,16 @@ class Node {
 private:
     vector<Node> neighbors;
     //Graphe graphe;
-	Cell linkedCell;
+    QPair<int,int> linkedCell;
 
 public:
     Node();
 
-    //Node(Graphe g, Cell c);
+    //Node(Graphe g, QPair<int,int> cell);
 
     Node(const Node& n);
 
-	void addNeighbour(Cell c);
+    void addNeighbour(QPair<int,int> cell);
 
 	void getNeighbors();
 };

@@ -50,6 +50,9 @@ QPushButton {
 
 #scene {
 	background: rgb(0,0,0);
+	background-image: url(:/images/map);
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 QWidget#Game {

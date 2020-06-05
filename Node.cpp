@@ -1,4 +1,4 @@
-#include "Node.h"
+#include "node.h"
 
 Node::Node(const Node& n) {
     this->neighbors = n.neighbors;
@@ -6,7 +6,7 @@ Node::Node(const Node& n) {
     //this->graphe = n.graphe;
 }
 
-void Node::addNeighbour(Cell c) {
+void Node::addNeighbour(QPair<int,int> cell) {
 	// TODO - implement Node::addNeighbour
 	throw "Not yet implemented";
 }

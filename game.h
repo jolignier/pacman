@@ -12,7 +12,7 @@
 #include <QResizeEvent>
 
 #include "board.h"
-#include "character.h"
+#include "inky.h"
 #include "player.h"
 
 namespace Ui {
@@ -48,7 +48,7 @@ private:
     QGraphicsScene* scene;
     QTimer* timer;
 
-    Character* inky;
+    Inky* inky;
     Player* player;
 };
 

@@ -50,16 +50,10 @@ void Game::displayBoard() {
     for (int i=0; i< Board::nbColumns; i++) {
         for (int j=0; j< Board::nbLines; j++) {
 
-            if (board.isWall(i,j)) {
+            if (board.isInky(i,j)) {
                 int x=i*Board::wallSize; int y=j*Board::wallSize;
-                QGraphicsRectItem* item = new QGraphicsRectItem(x,y,Board::wallSize,Board::wallSize);
-                item->setBrush(QBrush(QColor(255,153,204)));
-                this->scene->addItem(item);
-
-            } else if (board.isInky(i,j)) {
-                int x=i*Board::wallSize; int y=j*Board::wallSize;
-                QPixmap* sprite = new QPixmap(":/sprites/inky/inky_up");
-                inky = new Character(this, x, y, sprite);
+                QPixmap* sprite = new QPixmap(":/sprites/inky/up");
+                inky = new Inky(this, x, y, sprite);
                 inky->setZValue(1);
                 this->scene->addItem(inky);
 
@@ -79,9 +73,9 @@ void Game::displayBoard() {
     }
 }
 
-void Game::update() {
-    inky->nextFrame();
+void Game::update() {    
     player->nextFrame();
+    inky->nextFrame();
     ui->scene->update();
 }
 
