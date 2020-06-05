@@ -7,6 +7,7 @@ Player::Player(QObject *parent, double x, double y) :
 {
     this->nbLife = 3;
     this->setFutureDirection(NONE);
+    this->rotateSprite(LEFT);
 }
 
 int Player::getNbLife() {
@@ -51,8 +52,37 @@ void Player::nextFrame(){
 void Player::applyFutureDirection() {
     if (futureDirection != NONE){
         if (canMove(futureDirection)){
+            // Rotating player sprite
+            rotateSprite(futureDirection);
+            // Applying direction
             setDirection(futureDirection);
             setFutureDirection(NONE);
         }
     }
+}
+
+void Player::rotateSprite(Direction dir) {
+
+    double centerX = this->boundingRect().width()/2;
+    double centerY = this->boundingRect().height()/2;
+    QTransform transform = QTransform();
+    transform.translate(centerX , centerY);
+
+    switch (dir) {
+        case UP:
+            transform.rotate(-90);
+            break;
+        case DOWN:
+            transform.rotate(90);
+            break;
+        case LEFT:
+            transform.rotate(180);
+            break;
+        case RIGHT:
+            transform.rotate(0);
+            break;
+
+    }
+    transform.translate( -centerX , -centerY );
+    this->setTransform(transform);
 }

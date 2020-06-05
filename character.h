@@ -23,8 +23,7 @@ private:
     int size;
 
 
-    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget *widget);
-    QRectF boundingRect() const;
+    void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget *widget);    
 
 public:
     Character(QObject *parent, double x, double y, QPixmap* sprite, double speed=3, Direction dir=LEFT, int size=20);
@@ -37,6 +36,8 @@ public:
     bool canMove(Direction dir);
     void move();
     void nextFrame();
+
+    QRectF boundingRect() const;
 
 };
 

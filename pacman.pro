@@ -20,9 +20,12 @@ SOURCES += \
     board.cpp \
     character.cpp \
     game.cpp \
+    ghost.cpp \
+    inky.cpp \
     main.cpp \
     mainwindow.cpp \
     menu.cpp \
+    node.cpp \
     player.cpp \
     scoremanager.cpp \
     edible.cpp \
@@ -35,8 +38,11 @@ HEADERS += \
     character.h \
     direction.h \
     game.h \
+    ghost.h \
+    inky.h \
     mainwindow.h \
     menu.h \
+    node.h \
     player.h \
     scoremanager.h \
     edible.h \

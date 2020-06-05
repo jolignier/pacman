@@ -12,7 +12,7 @@
 #include <QResizeEvent>
 
 #include "board.h"
-#include "character.h"
+#include "inky.h"
 #include "player.h"
 #include "gum.h"
 #include "superGum.h"
@@ -50,7 +50,7 @@ private:
     QGraphicsScene* scene;
     QTimer* timer;
 
-    Character* inky;
+    Inky* inky;
     Player* player;
 };
 
