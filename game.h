@@ -10,6 +10,7 @@
 #include <QDebug>
 #include <QTimer>
 #include <QResizeEvent>
+#include <QVector>
 
 #include "board.h"
 #include "inky.h"
@@ -17,7 +18,8 @@
 #include "gum.h"
 #include "superGum.h"
 #include "scoremanager.h"
-#include <QVector>
+#include "graphe.h"
+
 
 namespace Ui {
 class Game;
@@ -39,12 +41,16 @@ public:
     void displayBoard();
     void newGame();
 
+    Graphe getGraphe();
+    void constructGraphe();
+
     void keyPressEvent(QKeyEvent *event);
 
 public slots:
     void update();
-
-    void superGumEaten();
+    void onScoreChanged();
+    void onSuperGumEaten();
+    void onScoresRetrieved();
 
 private:
     Ui::Game *ui;
@@ -54,8 +60,9 @@ private:
     QGraphicsScene* scene;
     QTimer* timer;
     QVector<Gums*> gums;
-
     ScoreManager* score;
+
+    Graphe graphe;
     Inky* inky;
     Player* player;
 };

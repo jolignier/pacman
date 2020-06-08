@@ -12,8 +12,13 @@ Game::Game(QWidget *parent) :
     ui->scene->setScene(scene);
     this->timer = new QTimer();
     this->timer->start(35);
-    score = new ScoreManager(parent);
-    gums = QVector<Gums*>();
+
+    this->score = new ScoreManager(parent);
+    connect(score, SIGNAL(currentScoreChanged()), this, SLOT(onScoreChanged()));
+    connect(score, SIGNAL(scoresRetrieved()), this, SLOT(onScoresRetrieved()));
+    this->gums = QVector<Gums*>();
+
+    this->graphe = Graphe();
 }
 
 Game::~Game()
@@ -42,6 +47,20 @@ void Game::lose() {
 void Game::displayMenu() {
 	// TODO - implement Game::displayMenu
 	throw "Not yet implemented";
+}
+
+Graphe Game::getGraphe(){
+    return this->graphe;
+}
+
+void Game::constructGraphe(){
+    for (int i=0; i<Board::nbColumns; i++){
+        for (int j=0; j<Board::nbColumns; j++){
+            if (!Board::isWall(i,j)){
+                graphe.addNode(QPair<int,int>(i,j));
+            }
+        }
+    }
 }
 
 void Game::newGame() {
@@ -92,12 +111,13 @@ void Game::displayBoard() {
     }
 }
 
-
-
-void Game::update() {    
+void Game::update() {
+    // Lets all characters move
     player->nextFrame();
     inky->nextFrame();
     ui->scene->update();
+
+    // Watch for gum collisions with player
     for (Gums* iter : gums) {
         if (player->collidesWithItem(iter)) {
             score->addPoints(iter->getPoints());
@@ -107,13 +127,24 @@ void Game::update() {
             break;
         }        
     }
-    qInfo() << score->getCurrentScore();
+
+    if (player->collidesWithItem(inky)){
+        qDebug() << "IM DYING";
+    }
 }
 
 void Game::keyPressEvent(QKeyEvent *event) {
     this->player->keyPressEvent(event);
 }
 
-void Game::superGumEaten(){
+void Game::onSuperGumEaten(){
     qDebug() << "SUPER GUM ATE";
+}
+
+void Game::onScoreChanged(){
+    ui->score->setNum(this->score->getCurrentScore());
+}
+
+void Game::onScoresRetrieved(){
+    ui->highScore_score->setNum(this->score->getHighestScore().first);
 }

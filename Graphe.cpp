@@ -1,31 +1,36 @@
-#include "Graphe.h"
+#include "graphe.h"
 
 Graphe::Graphe() {
-	// TODO - implement Graphe::Graphe
-	throw "Not yet implemented";
+    this->vertices = new vector<Node*>();
 }
 
-void Graphe::addNode(Cell c) {
-	// TODO - implement Graphe::addNode
-	throw "Not yet implemented";
+void Graphe::addNode(QPair<int,int> cell) {
+    Node* n = new Node(cell);
+    this->vertices->push_back(n);
 }
 
-void Graphe::addVertice(Cell c1, Cell c2) {
-	// TODO - implement Graphe::addVertice
-	throw "Not yet implemented";
+void Graphe::addVertice(QPair<int,int> c1, QPair<int,int> c2) {
+    Node* n1 = getNode(c1);
+    Node* n2 = getNode(c2);
+    n1->addNeighbour(n2);
 }
 
-void Graphe::getNodes() {
-	// TODO - implement Graphe::getNodes
-	throw "Not yet implemented";
+vector<Node*>* Graphe::getNodes() {
+    return this->vertices;
 }
 
-void Graphe::getInfinite() {
-	// TODO - implement Graphe::getInfinite
-	throw "Not yet implemented";
+int Graphe::getInfinite() {
+    if (this->infinite == -1){
+        infinite = 1 + this->vertices->size();
+    }
+    return this->infinite;
 }
 
-void Graphe::getNode(Cell c) {
-	// TODO - implement Graphe::getNode
-	throw "Not yet implemented";
+Node* Graphe::getNode(QPair<int,int> cell) {
+    for(Node* n : *vertices){
+        if (n->getLinkedCell() == cell){
+            return n;
+        }
+    }
+    return NULL;
 }

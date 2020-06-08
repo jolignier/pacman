@@ -12,13 +12,14 @@ class Ghost : public Character {
 private:
     bool affraid;
     bool chasing;
-    vector<Node> chemin;
+    vector<Node> path;
 
 public:
     Ghost(QObject *parent, double x, double y, QPixmap* sprite);
 
     bool isAffraid();
     bool isChasing();
+    vector<Node> getPath();
 
     virtual void rotateSprite(Direction dir);
 };

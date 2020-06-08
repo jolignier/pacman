@@ -3,20 +3,23 @@
 
 #include <stdlib.h>
 #include <vector>
-#include "Node.h"
-#include "Graphe.h"
+#include <QHash>
+
+#include "node.h"
+#include "graphe.h"
 
 using namespace std;
 
 class Astar {
 
 private:
-    //Graphe graphe;
-	Node starting;
-	Node ending;
-    vector<pair<Node, int>> distance;
-    vector<pair<Node, bool>> visited;
-    vector<pair<Node, Node>> predecessor;
+    Graphe graphe;
+    Node* starting;
+    Node* ending;
+    QHash<Node*, int> distance;
+    QHash<Node*, bool> visited;
+    QHash<Node*, Node*> predecessor;
+    QList<Node*> path;
 
 
 public:
@@ -24,13 +27,13 @@ public:
 
 	void initialize();
 
-	Node getClosestNode();
+    Node* getClosestNode();
 
-	double getHeuristic();
+    double getHeuristic(Node* n);
 
-	void calcul(Node starting, Node ending);
+    void calcul(Node* starting, Node* ending);
 
-	void getPath();
+    QList<Node*> getPath();
 };
 
 #endif

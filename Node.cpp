@@ -1,17 +1,23 @@
 #include "node.h"
 
+Node::Node(QPair<int,int> cell){
+    this->linkedCell = cell;
+    this->neighbors = new vector<Node*>();
+}
+
 Node::Node(const Node& n) {
     this->neighbors = n.neighbors;
     this->linkedCell = n.linkedCell;
-    //this->graphe = n.graphe;
 }
 
-void Node::addNeighbour(QPair<int,int> cell) {
-	// TODO - implement Node::addNeighbour
-	throw "Not yet implemented";
+void Node::addNeighbour(Node* n) {
+    this->neighbors->push_back(n);
 }
 
-void Node::getNeighbors() {
-	// TODO - implement Node::getNeighbors
-	throw "Not yet implemented";
+vector<Node*>* Node::getNeighbors() {
+    return this->neighbors;
+}
+
+QPair<int,int> Node::getLinkedCell(){
+    return this->linkedCell;
 }

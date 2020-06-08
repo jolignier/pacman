@@ -3,29 +3,30 @@
 
 #include <stdlib.h>
 #include <vector>
-#include "Node.h"
-#include "Cell.h"
+#include <QPair>
+#include <QVector>
+#include "node.h"
 
 using namespace std;
 
 class Graphe {
 
 private:
-    //vector<Node> vertices;
-	int infinite;
+    vector<Node*>* vertices;
+    int infinite;
 
 public:
 	Graphe();
 
-	void addNode(Cell c);
+    void addNode(QPair<int,int> cell);
 
-	void addVertice(Cell c1, Cell c2);
+    void addVertice(QPair<int,int> c1, QPair<int,int> c2);
 
-	void getNodes();
+    vector<Node*>* getNodes();
 
-	void getInfinite();
+    int getInfinite();
 
-	void getNode(Cell c);
+    Node* getNode(QPair<int,int> cell);
 };
 
 #endif

@@ -25,6 +25,7 @@ public slots:
 
 signals:
     void scoresRetrieved();
+    void currentScoreChanged();
 
 public:
     explicit ScoreManager(QObject *parent = 0);

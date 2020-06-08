@@ -11,20 +11,18 @@ using namespace std;
 class Node {
 
 private:
-    vector<Node> neighbors;
-    //Graphe graphe;
+    vector<Node*>* neighbors;
     QPair<int,int> linkedCell;
 
 public:
-    Node();
-
-    //Node(Graphe g, QPair<int,int> cell);
-
+    Node(QPair<int,int> cell);
     Node(const Node& n);
 
-    void addNeighbour(QPair<int,int> cell);
+    void addNeighbour(Node* n);
 
-	void getNeighbors();
+    vector<Node*>* getNeighbors();
+
+    QPair<int,int> getLinkedCell();
 };
 
 #endif

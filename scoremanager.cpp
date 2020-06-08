@@ -33,7 +33,7 @@ QList<QPair<int, QString>>* ScoreManager::getTop10() {
 }
 
 QPair<int, QString> ScoreManager::getHighestScore() {
-    return scores->at(1);
+    return scores->at(0);
 }
 
 void ScoreManager::saveCurrentScore(QString name) {
@@ -66,6 +66,7 @@ int ScoreManager::getCurrentScore() {
 
 void ScoreManager::addPoints(int points){
     currentScore += points;
+    emit currentScoreChanged();
 }
 
 void ScoreManager::retrieveScores() {

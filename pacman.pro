@@ -17,10 +17,12 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    astar.cpp \
     board.cpp \
     character.cpp \
     game.cpp \
     ghost.cpp \
+    graphe.cpp \
     inky.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -34,11 +36,13 @@ SOURCES += \
     superGum.cpp
 
 HEADERS += \
+    astar.h \
     board.h \
     character.h \
     direction.h \
     game.h \
     ghost.h \
+    graphe.h \
     inky.h \
     mainwindow.h \
     menu.h \

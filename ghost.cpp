@@ -13,6 +13,8 @@ bool Ghost::isChasing() {
     return chasing;
 }
 
-void Ghost::rotateSprite(Direction dir){
-
+vector<Node> Ghost::getPath(){
+    return path;
 }
+
+void Ghost::rotateSprite(Direction dir){}
