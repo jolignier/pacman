@@ -2,36 +2,69 @@
 
 Astar::Astar(Graphe g) {
     this->graphe = g;
-    QHash<QString, int> blyat;
+
+    this->distance = QHash<Node*, int>();
+    this->visited = QHash<Node*, bool>();
+    this->predecessor = QHash<Node*, Node*>();
+
+    this->path = QList<Node*>();
+
+    this->starting = NULL;
+    this->ending = NULL;
 }
 
 void Astar::initialize() {
-    for (Node* n : *graphe.getNodes()){
-        visited.insert(n, false);
-        distance.insert(n, graphe.getInfinite());
-        predecessor.insert(n, NULL);
-        path.clear();
+    for (Node* n : graphe.getNodes()){
+        this->visited.insert(n, false);
+        this->distance.insert(n, graphe.getInfinite());
+        this->predecessor.insert(n, NULL);
+        this->path.clear();
     }
-    distance.insert(starting, 0);
+    this->distance.insert(starting, 0);
 }
 
 Node* Astar::getClosestNode() {
     int min = graphe.getInfinite()+1;
-    Node* n = NULL;
-    for(Node* n : *graphe.getNodes()){
-
+    Node* closest = NULL;
+    for(Node* n : graphe.getNodes()){
+        if (distance.value(n)< min && !visited.value(n)){
+            min = distance.value(n);
+            closest = n;
+        }
     }
-    return n;
+    return closest;
 }
 
-double Astar::getHeuristic(Node* n) {
-	// TODO - implement Astar::getHeuristic
-	throw "Not yet implemented";
-}
+void Astar::calcul(Node* starting, Node* ending) {    
+    this->starting = starting;
+    this->ending = ending;
+    this->initialize();
 
-void Astar::calcul(Node* starting, Node* ending) {
-	// TODO - implement Astar::calcul
-	throw "Not yet implemented";
+    int dist ;
+    int distTemp = 0;
+    Node* nodeTemp = starting;
+
+    while(visited.values().contains(false)){
+        visited.insert(nodeTemp, true);
+        for (Node* neighbor : *nodeTemp->getNeighbors()){
+            dist = distTemp + graphe.getLabel(nodeTemp->getLinkedCell(), neighbor->getLinkedCell());
+            if (distance.value(neighbor) > dist && neighbor != starting) {
+                distance.insert(neighbor, dist);
+                predecessor.insert(neighbor, nodeTemp);
+            }
+        }
+
+        nodeTemp = getClosestNode();
+        if (nodeTemp != NULL){
+            distTemp = distance.value(nodeTemp);
+        }
+    }
+
+    Node* n = ending;
+    while(n != NULL){
+        this->path.push_front(n);
+        n = predecessor.value(n);
+    }
 }
 
 QList<Node*> Astar::getPath() {

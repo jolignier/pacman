@@ -19,6 +19,9 @@ Game::Game(QWidget *parent) :
     this->gums = QVector<Gums*>();
 
     this->graphe = Graphe();
+    constructGraphe();
+
+
 }
 
 Game::~Game()
@@ -54,14 +57,42 @@ Graphe Game::getGraphe(){
 }
 
 void Game::constructGraphe(){
+    // Add vertices to graphe
     for (int i=0; i<Board::nbColumns; i++){
-        for (int j=0; j<Board::nbColumns; j++){
+        for (int j=0; j<Board::nbLines; j++){
             if (!Board::isWall(i,j)){
                 graphe.addNode(QPair<int,int>(i,j));
             }
         }
     }
+    // Connect each vertex to hits neighboor
+    // A node can only be neighboor to adjacent sides (left, right, top, bottom)
+    for (int i=0; i<Board::nbColumns; i++){
+        for (int j=0; j<Board::nbLines; j++){
+            if (!Board::isWall(i,j)){
+                if (!Board::isWall(i-1,j)){
+                    graphe.addEdge(QPair<int,int>(i,j), QPair<int,int>(i-1,j));
+                    graphe.setLabel(QPair<int,int>(i,j), QPair<int,int>(i-1,j), 1);
+                }
+                if (!Board::isWall(i+1,j)){
+                    graphe.addEdge(QPair<int,int>(i,j), QPair<int,int>(i+1,j));
+                    graphe.setLabel(QPair<int,int>(i,j), QPair<int,int>(i+1,j), 1);
+                }
+                if (!Board::isWall(i,j-1)){
+                    graphe.addEdge(QPair<int,int>(i,j), QPair<int,int>(i,j-1));
+                    graphe.setLabel(QPair<int,int>(i,j), QPair<int,int>(i,j-1), 1);
+                }
+                if (!Board::isWall(i,j+1)){
+                    graphe.addEdge(QPair<int,int>(i,j), QPair<int,int>(i,j+1));
+                    graphe.setLabel(QPair<int,int>(i,j), QPair<int,int>(i,j+1), 1);
+                }
+            }
+        }
+    }
+
 }
+
+
 
 void Game::newGame() {
     displayBoard();
@@ -92,8 +123,7 @@ void Game::displayBoard() {
                 item->setZValue(1);
                 this->scene->addItem(item);
 
-            }
-            if (board.isGum(i, j)) {
+            } else if (board.isGum(i, j)) {
                 int x=i*Board::wallSize; int y=j*Board::wallSize;
                 Gum *gum = new Gum(x, y, Board::wallSize, this);
                 gum->setZValue(2);
@@ -108,7 +138,7 @@ void Game::displayBoard() {
                 this->scene->addItem(supGum);
             }
         }
-    }
+    }    
 }
 
 void Game::update() {

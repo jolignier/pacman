@@ -29,8 +29,6 @@ public:
 
     Node* getClosestNode();
 
-    double getHeuristic(Node* n);
-
     void calcul(Node* starting, Node* ending);
 
     QList<Node*> getPath();

@@ -5,6 +5,7 @@
 #include <vector>
 #include <QPair>
 #include <QVector>
+#include <QHash>
 #include "node.h"
 
 using namespace std;
@@ -12,7 +13,8 @@ using namespace std;
 class Graphe {
 
 private:
-    vector<Node*>* vertices;
+    vector<Node*> vertices;
+    QHash<QPair<Node*,Node*>, int> labels;
     int infinite;
 
 public:
@@ -20,11 +22,14 @@ public:
 
     void addNode(QPair<int,int> cell);
 
-    void addVertice(QPair<int,int> c1, QPair<int,int> c2);
+    void addEdge(QPair<int,int> c1, QPair<int,int> c2);
 
-    vector<Node*>* getNodes();
+    vector<Node*> getNodes();
 
     int getInfinite();
+
+    int getLabel(QPair<int,int> c1, QPair<int,int> c2);
+    void setLabel(QPair<int,int> c1, QPair<int,int> c2, int value);
 
     Node* getNode(QPair<int,int> cell);
 };

@@ -19,6 +19,7 @@
 #include "superGum.h"
 #include "scoremanager.h"
 #include "graphe.h"
+#include "astar.h"
 
 
 namespace Ui {
@@ -63,6 +64,7 @@ private:
     ScoreManager* score;
 
     Graphe graphe;
+
     Inky* inky;
     Player* player;
 };
