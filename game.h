@@ -36,14 +36,16 @@ public:
 
     bool hasWin();
     bool hasLost();
-	void win();
-	void lose();
-	void displayMenu();
+    void win();
+    void lose();
+    void displayMenu();
     void displayBoard();
     void newGame();
 
     Graphe getGraphe();
     void constructGraphe();
+
+    QPair<int,int> getPlayerPosition();
 
     void keyPressEvent(QKeyEvent *event);
 
@@ -64,6 +66,7 @@ private:
     ScoreManager* score;
 
     Graphe graphe;
+    Astar astar;
 
     Inky* inky;
     Player* player;

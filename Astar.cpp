@@ -1,5 +1,7 @@
 #include "astar.h"
 
+Astar::Astar(){}
+
 Astar::Astar(Graphe g) {
     this->graphe = g;
 
@@ -64,6 +66,9 @@ void Astar::calcul(Node* starting, Node* ending) {
     while(n != NULL){
         this->path.push_front(n);
         n = predecessor.value(n);
+    }
+    if (!this->path.isEmpty()){
+        path.pop_front();
     }
 }
 

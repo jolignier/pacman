@@ -20,8 +20,7 @@ Game::Game(QWidget *parent) :
 
     this->graphe = Graphe();
     constructGraphe();
-
-
+    this->astar = Astar(graphe);
 }
 
 Game::~Game()
@@ -30,26 +29,25 @@ Game::~Game()
 }
 
 bool Game::hasWin() {
-    return false;
+    return (gums.size() < 1);
 }
 
 bool Game::hasLost() {
-    return false;
+    return (player->getNbLife() <1);
 }
 
 void Game::win() {
-	// TODO - implement Game::win
-	throw "Not yet implemented";
+    // TODO - implement Game::win
+    throw "Not yet implemented";
 }
 
 void Game::lose() {
-	// TODO - implement Game::lose
-	throw "Not yet implemented";
+    // TODO - implement Game::lose
+    throw "Not yet implemented";
 }
 
 void Game::displayMenu() {
-	// TODO - implement Game::displayMenu
-	throw "Not yet implemented";
+    qobject_cast<MainWindow*>(this->parent())->displayMainMenu();
 }
 
 Graphe Game::getGraphe(){
@@ -90,9 +88,17 @@ void Game::constructGraphe(){
         }
     }
 
+    // Connect teleporters to each others on the graphe
+    graphe.addEdge(QPair<int,int>(0,14), QPair<int,int>(29,14));
+    graphe.setLabel(QPair<int,int>(0,14), QPair<int,int>(29,14), 1);
+    graphe.addEdge(QPair<int,int>(29,14), QPair<int,int>(0,14));
+    graphe.setLabel(QPair<int,int>(29,14), QPair<int,int>(0,14), 1);
+
 }
 
-
+QPair<int,int> Game::getPlayerPosition(){
+    return QPair<int,int>(player->getPosition());
+}
 
 void Game::newGame() {
     displayBoard();
@@ -102,12 +108,11 @@ void Game::newGame() {
 void Game::displayBoard() {
     for (int i=0; i< Board::nbColumns; i++) {
         for (int j=0; j< Board::nbLines; j++) {
-
             if (board.isInky(i,j)) {
                 int x=i*Board::wallSize; int y=j*Board::wallSize;
                 QPixmap* sprite = new QPixmap(":/sprites/inky/up");
-                inky = new Inky(this, x, y, sprite);
-                inky->setZValue(1);
+                inky = new Inky(this, x, y, this->graphe, sprite);
+                inky->setZValue(3);
                 this->scene->addItem(inky);
 
             } else if (board.isPlayer(i,j)) {
@@ -138,7 +143,7 @@ void Game::displayBoard() {
                 this->scene->addItem(supGum);
             }
         }
-    }    
+    }
 }
 
 void Game::update() {
@@ -155,7 +160,7 @@ void Game::update() {
             gums.removeOne(iter);
             iter->eaten();
             break;
-        }        
+        }
     }
 
     if (player->collidesWithItem(inky)){

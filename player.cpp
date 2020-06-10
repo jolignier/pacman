@@ -18,12 +18,10 @@ void Player::setNbLife(int nbLife) {
 	this->nbLife = nbLife;
 }
 
-Direction Player::getFutureDirection() {
-	return this->futureDirection;
-}
-
-void Player::setFutureDirection(Direction futureDirection) {
-	this->futureDirection = futureDirection;
+QPair<int,int> Player::getPosition(){
+    int x = this->pos().x() / Board::wallSize;
+    int y = this->pos().y() / Board::wallSize;
+    return QPair<int,int>(x,y);
 }
 
 void Player::keyPressEvent(QKeyEvent *event){
@@ -40,24 +38,6 @@ void Player::keyPressEvent(QKeyEvent *event){
         case Qt::Key_Right:
             setFutureDirection(RIGHT);
             break;
-    }
-}
-
-void Player::nextFrame(){
-    this->applyFutureDirection();
-    Character::nextFrame();
-
-}
-
-void Player::applyFutureDirection() {
-    if (futureDirection != NONE){
-        if (canMove(futureDirection)){
-            // Rotating player sprite
-            rotateSprite(futureDirection);
-            // Applying direction
-            setDirection(futureDirection);
-            setFutureDirection(NONE);
-        }
     }
 }
 
@@ -81,7 +61,8 @@ void Player::rotateSprite(Direction dir) {
         case RIGHT:
             transform.rotate(0);
             break;
-
+        case NONE:
+            break;
     }
     transform.translate( -centerX , -centerY );
     this->setTransform(transform);

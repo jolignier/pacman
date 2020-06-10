@@ -12,8 +12,7 @@ using namespace std;
 class Player : public Character {
 
 private:
-	int nbLife;
-	Direction futureDirection;
+    int nbLife;
 
 public:
     Player(QObject *parent, double x, double y);
@@ -21,13 +20,10 @@ public:
 	int getNbLife();
 	void setNbLife(int nbLife);
 
-	Direction getFutureDirection();
-	void setFutureDirection(Direction futureDirection);
-    void nextFrame();
-    void applyFutureDirection();
-    void keyPressEvent(QKeyEvent *event);
+    QPair<int,int> getPosition();
 
-    void rotateSprite(Direction dir);
+    void keyPressEvent(QKeyEvent *event) override;
+    void rotateSprite(Direction dir) override;
 };
 
 #endif

@@ -42,6 +42,7 @@ HEADERS += \
     direction.h \
     game.h \
     ghost.h \
+    ghostmode.h \
     graphe.h \
     inky.h \
     mainwindow.h \

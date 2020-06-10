@@ -19,6 +19,7 @@ private:
     QPixmap* sprite;
 	double speed;
 	Direction direction;
+    Direction futureDirection;
     int currentFrame;
     int size;
 
@@ -33,11 +34,15 @@ public:
 	void setSpeed(double speed);
 	Direction getDirection();
 	void setDirection(Direction direction);
+    Direction getFutureDirection();
+    void setFutureDirection(Direction futureDirection);
+    void applyFutureDirection();
     bool canMove(Direction dir);
     void move();
     void nextFrame();
 
     QRectF boundingRect() const;
+    virtual void rotateSprite(Direction dir) = 0;
 
 };
 

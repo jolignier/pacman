@@ -23,6 +23,7 @@ private:
 
 
 public:
+    Astar();
 	Astar(Graphe g);
 
 	void initialize();

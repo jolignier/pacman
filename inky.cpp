@@ -1,8 +1,11 @@
 #include "inky.h"
 
-Inky::Inky(QObject *parent, double x, double y, QPixmap* sprite):
-    Ghost(parent, x, y, sprite){
+Inky::Inky(QObject *parent, double x, double y, Graphe graphe, QPixmap* sprite):
+    Ghost(parent, x, y, graphe, sprite){
+}
 
+QPair<int,int> Inky::getTarget(){
+    return QPair<int,int>(27,29);
 }
 
 void Inky::rotateSprite(Direction dir){
@@ -13,12 +16,11 @@ void Inky::rotateSprite(Direction dir){
         case DOWN:
             this->setSprite(new QPixmap(":/sprites/inky/down"));
             break;
-        case LEFT:
+        case LEFT:case NONE:
             this->setSprite(new QPixmap(":/sprites/inky/left"));
             break;
         case RIGHT:
             this->setSprite(new QPixmap(":/sprites/inky/right"));
             break;
-
     }
 }

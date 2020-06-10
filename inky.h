@@ -8,10 +8,10 @@ class Inky : public Ghost {
 
 
 public:
-    Inky(QObject *parent, double x, double y, QPixmap* sprite);
+    Inky(QObject *parent, double x, double y, Graphe graphe, QPixmap* sprite);
 
-    void rotateSprite(Direction dir);
-
+    QPair<int,int> getTarget() override;
+    void rotateSprite(Direction dir) override;
 };
 
 #endif

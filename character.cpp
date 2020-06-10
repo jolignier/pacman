@@ -10,6 +10,7 @@ Character::Character(QObject *parent, double x, double y, QPixmap* sprite, doubl
     this->setPos(x, y);
     this->speed = speed;
     this->direction = dir;
+    this->futureDirection = NONE;
     this->size = size;
 }
 
@@ -31,6 +32,26 @@ Direction Character::getDirection() {
 
 void Character::setDirection(Direction direction) {
 	this->direction = direction;
+}
+
+Direction Character::getFutureDirection() {
+    return this->futureDirection;
+}
+
+void Character::setFutureDirection(Direction direction) {
+    this->futureDirection = direction;
+}
+
+void Character::applyFutureDirection(){
+    if (futureDirection != NONE){
+        if (canMove(futureDirection)){
+            // Rotating sprite
+            rotateSprite(futureDirection);
+            // Applying direction
+            setDirection(futureDirection);
+            setFutureDirection(NONE);
+        }
+    }
 }
 
 bool Character::canMove(Direction dir){
@@ -104,6 +125,7 @@ QRectF Character::boundingRect() const {
 }
 
 void Character::nextFrame() {
+    this->applyFutureDirection();
     this->currentFrame += this->size;
     if (currentFrame >= this->sprite->size().width())
         this->currentFrame = 0;
