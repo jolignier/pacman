@@ -15,6 +15,8 @@ using namespace std;
 
 class Character : public QObject, public QGraphicsItem {
 
+    Q_OBJECT
+
 private:
     QPixmap* sprite;
 	double speed;

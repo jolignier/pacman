@@ -21,6 +21,7 @@ void Player::setNbLife(int nbLife) {
 QPair<int,int> Player::getPosition(){
     int x = this->pos().x() / Board::wallSize;
     int y = this->pos().y() / Board::wallSize;
+
     return QPair<int,int>(x,y);
 }
 

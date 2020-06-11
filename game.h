@@ -14,12 +14,11 @@
 
 #include "board.h"
 #include "inky.h"
+#include "blinky.h"
 #include "player.h"
 #include "gum.h"
 #include "superGum.h"
 #include "scoremanager.h"
-#include "graphe.h"
-#include "astar.h"
 
 
 namespace Ui {
@@ -42,11 +41,6 @@ public:
     void displayBoard();
     void newGame();
 
-    Graphe getGraphe();
-    void constructGraphe();
-
-    QPair<int,int> getPlayerPosition();
-
     void keyPressEvent(QKeyEvent *event);
 
 public slots:
@@ -65,10 +59,8 @@ private:
     QVector<Gums*> gums;
     ScoreManager* score;
 
-    Graphe graphe;
-    Astar astar;
-
     Inky* inky;
+    Blinky* blinky;
     Player* player;
 };
 

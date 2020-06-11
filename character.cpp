@@ -3,7 +3,7 @@
 #include <QDebug>
 
 Character::Character(QObject *parent, double x, double y, QPixmap* sprite, double speed, Direction dir, int size) :
-    QObject(parent), QGraphicsItem()
+    QGraphicsItem()
 {
     this->currentFrame = 0;
     this->sprite = sprite;

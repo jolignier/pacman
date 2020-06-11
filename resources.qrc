@@ -24,19 +24,19 @@
         <file alias="right">resources/sprites/pinky/right.png</file>
         <file alias="up">resources/sprites/pinky/up.png</file>
     </qresource>
-    <qresource prefix="/sprite/eyes">
+    <qresource prefix="/sprites/eyes">
         <file alias="down">resources/sprites/eyes/down.png</file>
         <file alias="left">resources/sprites/eyes/left.png</file>
         <file alias="right">resources/sprites/eyes/right.png</file>
         <file alias="up">resources/sprites/eyes/up.png</file>
     </qresource>
-    <qresource prefix="/sprite/clyde">
+    <qresource prefix="/sprites/clyde">
         <file alias="down">resources/sprites/clyde/down.png</file>
         <file alias="left">resources/sprites/clyde/left.png</file>
         <file alias="right">resources/sprites/clyde/right.png</file>
         <file alias="up">resources/sprites/clyde/up.png</file>
     </qresource>
-    <qresource prefix="/sprite/blinky">
+    <qresource prefix="/sprites/blinky">
         <file alias="down">resources/sprites/blinky/down.png</file>
         <file alias="left">resources/sprites/blinky/left.png</file>
         <file alias="right">resources/sprites/blinky/right.png</file>

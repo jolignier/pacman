@@ -2,13 +2,12 @@
 
 #include <QDebug>
 
-Ghost::Ghost(QObject *parent, double x, double y, Graphe graphe, QPixmap* sprite) :
+Ghost::Ghost(QObject *parent, double x, double y, QPixmap* sprite) :
     Character(parent, x, y, sprite) {
 
-    setMode(SCATTER);
+    setMode(SCATTER);    
     nbScatterCycle = 1;
-    this->graphe = graphe;
-    this->astar = Astar(graphe);
+    this->player = player;
     this->timer = new QTimer();
     this->timer->start(getModeChangeTime());
     this->connect(timer, SIGNAL(timeout()), this, SLOT(swapMode()));
@@ -64,34 +63,42 @@ void Ghost::swapMode(){
     this->timer->setInterval(getModeChangeTime());
 }
 
-QList<Node*> Ghost::getPath(){
-    return path;
+
+Player* Ghost::getPlayer(){
+    return this->player;
 }
 
-void Ghost::calculateNewPath() {
+void Ghost::setPlayer(Player* player){
+    this->player = player;
+}
+
+// Return the euclidian distance between two coordinates
+double Ghost::getDistance(QPair<int,int> a, QPair<int,int> b){
+    return sqrt( pow(b.first - a.first,2) + pow(b.second - a.second ,2) );
+}
+
+void Ghost::calculateDirection(){
+    QPair<int,int> target = getTarget();
     int x = this->pos().x() / Board::wallSize;
     int y = this->pos().y() / Board::wallSize;
-    Node* start = graphe.getNode(QPair<int,int>(x,y));
-    Node* end = graphe.getNode(getTarget());
-    this->astar.calcul(start, end);
-    this->path = astar.getPath();
+
+    // Calculate distance for each adjacent cell
+    double distance_left = getDistance(target, QPair<int,int>(x-1,y));
+    double distance_right = getDistance(target, QPair<int,int>(x+1,y));
+    double distance_up = getDistance(target, QPair<int,int>(x,y-1));
+    double distance_down = getDistance(target, QPair<int,int>(x,y+1));
+
+    // Bind them to their direction
+    directionOrder[0] = QPair<double,Direction>(distance_left,LEFT);
+    directionOrder[1] = QPair<double,Direction>(distance_right,RIGHT);
+    directionOrder[2] = QPair<double,Direction>(distance_up,UP);
+    directionOrder[3] = QPair<double,Direction>(distance_down,DOWN);
+
+    // Sort them according to their distance
+    sort(directionOrder, directionOrder+4);
 }
 
-// We consider that only adjacent cells can be part of the path
-Direction Ghost::getDirectionFromPath(){
-    QPair<int,int> nextCell = this->path.at(0)->getLinkedCell();
-    int delta_x = nextCell.first - (this->pos().x() / Board::wallSize) ;
-    int delta_y = nextCell.second - (this->pos().y() / Board::wallSize);
-    Direction res;
-    if (delta_x == 0){
-        if (delta_y == 1) res = DOWN;
-        else res = UP;
-    }else {
-        if (delta_x == 1) res = RIGHT;
-        else res = LEFT;
-    }
-    return res;
-}
+
 
 // If we are not on an intersection
 // We just want the only next possible Direction that is not
@@ -99,18 +106,39 @@ Direction Ghost::getDirectionFromPath(){
 Direction Ghost::getNextDirection(){
     int x = this->pos().x() / Board::wallSize;
     int y = this->pos().y() / Board::wallSize;
-    Direction next = this->getDirection();
+    calculateDirection();
+    Direction next = directionOrder[0].second;
     if (Board::isIntersection(x,y)){
-        this->lastIntersection = QPair<int,int>(x,y);
-        this->calculateNewPath();
-        next = this->getDirectionFromPath();
-    } else {
-        next = nextDirectionToTest(this->getDirection());
-        while (!canMove(next) || isOppositeDirection(next)){
-            next = nextDirectionToTest(next);
-        }
+        lastIntersection = QPair<int,int>(x,y);
     }
+    int i =1;
+    while (isWall(next) || isOppositeDirection(next)){
+        next = directionOrder[i].second;
+        i++;
+    }
+
     return next;
+}
+
+bool Ghost::isWall(Direction dir){
+    bool res = false;
+    int x = this->pos().x() / Board::wallSize;
+    int y = this->pos().y() / Board::wallSize;
+    switch (dir){
+        case UP:
+            res = Board::isWall(x,y-1);
+            break;
+        case RIGHT:
+            res = Board::isWall(x+1,y);
+            break;
+        case DOWN:
+            res = Board::isWall(x,y+1);
+            break;
+        case LEFT:
+            res = Board::isWall(x-1,y);
+            break;
+    }
+    return res;
 }
 
 bool Ghost::isOppositeDirection(Direction dir){
@@ -130,25 +158,6 @@ bool Ghost::isOppositeDirection(Direction dir){
             break;
     }
     return res;
-}
-
-Direction Ghost::nextDirectionToTest(Direction current){
-    Direction next;
-    switch (current){
-        case UP:
-            next = RIGHT;
-            break;
-        case RIGHT:
-            next = DOWN;
-            break;
-        case DOWN:
-            next = LEFT;
-            break;
-        case LEFT:
-            next = UP;
-            break;
-    }
-    return next;
 }
 
 bool Ghost::isNotLastIntersection(int x, int y){

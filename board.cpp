@@ -11,7 +11,6 @@ Board::Board() {
     // 7 = Pinky  le fantome rose
     // 8 = Inky   le fantome bleu
     // 9 = Clyde  le fantome orange
-
 }
 
 int Board::getCell(int x, int y) {
@@ -55,7 +54,7 @@ bool Board::isClyde(int x, int y) {
 }
 
 bool Board::isIntersection(int x, int y) {
-    for (int i=0; i<32; i++) {
+    for (int i=0; i<34; i++) {
         if (intersections[i][0] == x && intersections[i][1] == y)
             return true;
     }

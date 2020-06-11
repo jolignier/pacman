@@ -3,9 +3,8 @@
 
 #include <stdlib.h>
 #include "character.h"
-#include "node.h"
 #include "ghostmode.h"
-#include "astar.h"
+#include "player.h"
 
 using namespace std;
 
@@ -16,20 +15,19 @@ class Ghost : public Character {
 private:
     GhostMode mode;
     QPair<int,int> target;
-    QList<Node*> path;
     QTimer* timer;
     int nbScatterCycle;
-    Graphe graphe;
-    Astar astar;
-
+    Player* player;
     QPair<int,int> lastIntersection;
+
+    QPair<double,Direction> directionOrder[4];
 
 public slots:
     void onSpawn();
     void swapMode();
 
 public:
-    Ghost(QObject *parent, double x, double y, Graphe graphe, QPixmap* sprite);
+    Ghost(QObject *parent, double x, double y, QPixmap* sprite);
 
     int getModeChangeTime();
 
@@ -37,13 +35,14 @@ public:
     GhostMode getMode();
     void setMode(GhostMode mode);
 
-    QList<Node*> getPath();
+    Player* getPlayer();
+    void setPlayer(Player* player);
 
-    void calculateNewPath();
-    Direction getDirectionFromPath();
-
+    double getDistance(QPair<int,int> a, QPair<int,int> b);
+    void calculateDirection();
     Direction getNextDirection();
-    Direction nextDirectionToTest(Direction current);
+
+    bool isWall(Direction dir);
     bool isOppositeDirection(Direction dir);
     bool isNotLastIntersection(int x, int y);
 

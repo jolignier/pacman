@@ -3,6 +3,7 @@
 #include "mainwindow.h"
 #include <QDebug>
 
+
 Game::Game(QWidget *parent) :
     QFrame(parent),
     ui(new Ui::Game)
@@ -16,11 +17,8 @@ Game::Game(QWidget *parent) :
     this->score = new ScoreManager(parent);
     connect(score, SIGNAL(currentScoreChanged()), this, SLOT(onScoreChanged()));
     connect(score, SIGNAL(scoresRetrieved()), this, SLOT(onScoresRetrieved()));
-    this->gums = QVector<Gums*>();
 
-    this->graphe = Graphe();
-    constructGraphe();
-    this->astar = Astar(graphe);
+    this->gums = QVector<Gums*>();
 }
 
 Game::~Game()
@@ -50,59 +48,14 @@ void Game::displayMenu() {
     qobject_cast<MainWindow*>(this->parent())->displayMainMenu();
 }
 
-Graphe Game::getGraphe(){
-    return this->graphe;
-}
-
-void Game::constructGraphe(){
-    // Add vertices to graphe
-    for (int i=0; i<Board::nbColumns; i++){
-        for (int j=0; j<Board::nbLines; j++){
-            if (!Board::isWall(i,j)){
-                graphe.addNode(QPair<int,int>(i,j));
-            }
-        }
-    }
-    // Connect each vertex to hits neighboor
-    // A node can only be neighboor to adjacent sides (left, right, top, bottom)
-    for (int i=0; i<Board::nbColumns; i++){
-        for (int j=0; j<Board::nbLines; j++){
-            if (!Board::isWall(i,j)){
-                if (!Board::isWall(i-1,j)){
-                    graphe.addEdge(QPair<int,int>(i,j), QPair<int,int>(i-1,j));
-                    graphe.setLabel(QPair<int,int>(i,j), QPair<int,int>(i-1,j), 1);
-                }
-                if (!Board::isWall(i+1,j)){
-                    graphe.addEdge(QPair<int,int>(i,j), QPair<int,int>(i+1,j));
-                    graphe.setLabel(QPair<int,int>(i,j), QPair<int,int>(i+1,j), 1);
-                }
-                if (!Board::isWall(i,j-1)){
-                    graphe.addEdge(QPair<int,int>(i,j), QPair<int,int>(i,j-1));
-                    graphe.setLabel(QPair<int,int>(i,j), QPair<int,int>(i,j-1), 1);
-                }
-                if (!Board::isWall(i,j+1)){
-                    graphe.addEdge(QPair<int,int>(i,j), QPair<int,int>(i,j+1));
-                    graphe.setLabel(QPair<int,int>(i,j), QPair<int,int>(i,j+1), 1);
-                }
-            }
-        }
-    }
-
-    // Connect teleporters to each others on the graphe
-    graphe.addEdge(QPair<int,int>(0,14), QPair<int,int>(29,14));
-    graphe.setLabel(QPair<int,int>(0,14), QPair<int,int>(29,14), 1);
-    graphe.addEdge(QPair<int,int>(29,14), QPair<int,int>(0,14));
-    graphe.setLabel(QPair<int,int>(29,14), QPair<int,int>(0,14), 1);
-
-}
-
-QPair<int,int> Game::getPlayerPosition(){
-    return QPair<int,int>(player->getPosition());
-}
-
 void Game::newGame() {
     displayBoard();
     this->connect(timer, SIGNAL(timeout()), this, SLOT(update()));
+
+    this->inky->setPlayer(this->player);
+    this->inky->setBlinky(this->blinky);
+
+    this->blinky->setPlayer(this->player);
 }
 
 void Game::displayBoard() {
@@ -110,10 +63,15 @@ void Game::displayBoard() {
         for (int j=0; j< Board::nbLines; j++) {
             if (board.isInky(i,j)) {
                 int x=i*Board::wallSize; int y=j*Board::wallSize;
-                QPixmap* sprite = new QPixmap(":/sprites/inky/up");
-                inky = new Inky(this, x, y, this->graphe, sprite);
+                inky = new Inky(this, x, y);
                 inky->setZValue(3);
                 this->scene->addItem(inky);
+
+            } else if (board.isBlinky(i,j)) {
+                int x=i*Board::wallSize; int y=j*Board::wallSize;
+                blinky = new Blinky(this, x, y);
+                blinky->setZValue(3);
+                this->scene->addItem(blinky);
 
             } else if (board.isPlayer(i,j)) {
                 int x=i*Board::wallSize; int y=j*Board::wallSize;
@@ -150,6 +108,8 @@ void Game::update() {
     // Lets all characters move
     player->nextFrame();
     inky->nextFrame();
+    blinky->nextFrame();
+
     ui->scene->update();
 
     // Watch for gum collisions with player
@@ -163,7 +123,7 @@ void Game::update() {
         }
     }
 
-    if (player->collidesWithItem(inky)){
+    if (player->collidesWithItem(inky) || player->collidesWithItem(blinky)){
         qDebug() << "IM DYING";
     }
 }
