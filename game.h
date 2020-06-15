@@ -15,6 +15,8 @@
 #include "board.h"
 #include "inky.h"
 #include "blinky.h"
+#include "pinky.h"
+#include "clyde.h"
 #include "player.h"
 #include "gum.h"
 #include "superGum.h"
@@ -61,6 +63,9 @@ private:
 
     Inky* inky;
     Blinky* blinky;
+    Pinky* pinky;
+    Clyde* clyde;
+
     Player* player;
 };
 

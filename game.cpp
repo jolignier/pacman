@@ -1,8 +1,9 @@
 #include "game.h"
 #include "ui_game.h"
 #include "mainwindow.h"
-#include <QDebug>
 
+#include <QDebug>
+#include <QSound>
 
 Game::Game(QWidget *parent) :
     QFrame(parent),
@@ -52,16 +53,23 @@ void Game::newGame() {
     displayBoard();
     this->connect(timer, SIGNAL(timeout()), this, SLOT(update()));
 
-    this->inky->setPlayer(this->player);
     this->inky->setBlinky(this->blinky);
-
+    this->inky->setPlayer(this->player);
     this->blinky->setPlayer(this->player);
+    this->pinky->setPlayer(this->player);
+    this->clyde->setPlayer(this->player);
 }
 
 void Game::displayBoard() {
     for (int i=0; i< Board::nbColumns; i++) {
         for (int j=0; j< Board::nbLines; j++) {
-            if (board.isInky(i,j)) {
+            if (board.isWall(i,j)) {
+                int x=i*Board::wallSize; int y=j*Board::wallSize;
+                QGraphicsRectItem* item = new QGraphicsRectItem(x,y,Board::wallSize,Board::wallSize);
+                item->setBrush(QBrush(QColor("transparent")));
+                this->scene->addItem(item);
+
+            } else if (board.isInky(i,j)) {
                 int x=i*Board::wallSize; int y=j*Board::wallSize;
                 inky = new Inky(this, x, y);
                 inky->setZValue(3);
@@ -73,20 +81,34 @@ void Game::displayBoard() {
                 blinky->setZValue(3);
                 this->scene->addItem(blinky);
 
+            } else if (board.isPinky(i,j)) {
+                int x=i*Board::wallSize; int y=j*Board::wallSize;
+                pinky = new Pinky(this, x, y);
+                pinky->setZValue(3);
+                this->scene->addItem(pinky);
+
+            } else if (board.isClyde(i,j)) {
+                int x=i*Board::wallSize; int y=j*Board::wallSize;
+                clyde = new Clyde(this, x, y);
+                clyde->setZValue(3);
+                this->scene->addItem(clyde);
+
             } else if (board.isPlayer(i,j)) {
                 int x=i*Board::wallSize; int y=j*Board::wallSize;
                 player = new Player(this, x, y);
                 player->setZValue(3);
                 this->scene->addItem(player);
 
-            } else if (board.isIntersection(i,j)) {
+            }
+            if (board.isIntersection(i,j)) {
                 int x=i*Board::wallSize; int y=j*Board::wallSize;
-                QGraphicsRectItem* item = new QGraphicsRectItem(x,y,Board::wallSize,Board::wallSize);
-                item->setBrush(QBrush(QColor(0,200,50)));
+                QGraphicsRectItem* item = new QGraphicsRectItem(x,y,Board::wallSize, Board::wallSize);
+                item->setBrush(QBrush(QColor(0,200,50, 200)));
                 item->setZValue(1);
                 this->scene->addItem(item);
 
-            } else if (board.isGum(i, j)) {
+            }
+            if (board.isGum(i, j)) {
                 int x=i*Board::wallSize; int y=j*Board::wallSize;
                 Gum *gum = new Gum(x, y, Board::wallSize, this);
                 gum->setZValue(2);
@@ -105,10 +127,14 @@ void Game::displayBoard() {
 }
 
 void Game::update() {
-    // Lets all characters move
+
+    // Lets move all characters
     player->nextFrame();
+
     inky->nextFrame();
     blinky->nextFrame();
+    pinky->nextFrame();
+    clyde->nextFrame();
 
     ui->scene->update();
 
@@ -119,12 +145,18 @@ void Game::update() {
             this->scene->removeItem(iter);
             gums.removeOne(iter);
             iter->eaten();
-            break;
+            break;            
         }
     }
 
-    if (player->collidesWithItem(inky) || player->collidesWithItem(blinky)){
-        qDebug() << "IM DYING";
+    if (player->collidesWithItem(inky)){
+        if (!player->isSuperMode()) qDebug() << "IM DYING";
+    } else if (player->collidesWithItem(pinky)){
+        if (!player->isSuperMode()) qDebug() << "IM DYING";
+    } else if (player->collidesWithItem(blinky)){
+        if (!player->isSuperMode()) qDebug() << "IM DYING";
+    } else if (player->collidesWithItem(clyde)){
+        if (!player->isSuperMode()) qDebug() << "IM DYING";
     }
 }
 
@@ -134,6 +166,11 @@ void Game::keyPressEvent(QKeyEvent *event) {
 
 void Game::onSuperGumEaten(){
     qDebug() << "SUPER GUM ATE";
+    this->player->onSuperGumEaten();
+    this->inky->onSuperGumEaten();
+    this->pinky->onSuperGumEaten();
+    this->blinky->onSuperGumEaten();
+    this->clyde->onSuperGumEaten();
 }
 
 void Game::onScoreChanged(){

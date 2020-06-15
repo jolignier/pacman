@@ -22,9 +22,18 @@ private:
 
     QPair<double,Direction> directionOrder[4];
 
+    double doubleModulus(double nb, int modulus);
+    void fixDistanceShift(double baseSpeed);
+
+signals:
+    void frightenedModeEnabled();
+    void frightenedModeDisabled();
+
 public slots:
     void onSpawn();
     void swapMode();
+    void onSuperGumEaten();
+    void disableFrightenedMode();
 
 public:
     Ghost(QObject *parent, double x, double y, QPixmap* sprite);

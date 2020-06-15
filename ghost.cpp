@@ -7,7 +7,6 @@ Ghost::Ghost(QObject *parent, double x, double y, QPixmap* sprite) :
 
     setMode(SCATTER);    
     nbScatterCycle = 1;
-    this->player = player;
     this->timer = new QTimer();
     this->timer->start(getModeChangeTime());
     this->connect(timer, SIGNAL(timeout()), this, SLOT(swapMode()));
@@ -52,12 +51,68 @@ void Ghost::onSpawn(){
     nbScatterCycle=1;
 }
 
+void Ghost::onSuperGumEaten(){
+    this->setMode(FRIGHTENED);
+    this->rotateSprite(this->getDirection());
+    this->timer->stop();
+    this->timer->start(7000);
+    this->connect(timer, SIGNAL(timeout()), this, SLOT(disableFrightenedMode()));
+    this->setSpeed(2);
+}
+
+double Ghost::doubleModulus(double nb, int modulus){
+    int euclidian = (int)nb / modulus;
+    qDebug() << nb << modulus << euclidian << (nb - modulus*euclidian);
+    return (nb - modulus*euclidian);
+}
+
+void Ghost::disableFrightenedMode(){
+    this->setMode(CHASE);
+    this->rotateSprite(this->getDirection());
+    this->timer->stop();
+    this->timer->start(getModeChangeTime());
+    this->connect(timer, SIGNAL(timeout()), this, SLOT(swapMode()));    
+
+    // Fix the distance shift due to speed transition
+    this->fixDistanceShift(4);
+    // Then set speed to normal
+    this->setSpeed(4);
+}
+
+void Ghost::fixDistanceShift(double baseSpeed){
+    double xShift;
+    double yShift;
+    if (canMove(this->getDirection())){
+        xShift = doubleModulus(this->pos().x(), baseSpeed);
+        yShift = doubleModulus(this->pos().y(), baseSpeed);
+    } else {
+        xShift = baseSpeed - doubleModulus(this->pos().x(), baseSpeed);
+        yShift = baseSpeed - doubleModulus(this->pos().y(), baseSpeed);
+    }
+
+    switch (this->getDirection()){
+        case UP:
+            setPos(this->pos().x(), this->pos().y() - yShift);
+            break;
+        case DOWN:
+            setPos(this->pos().x(), this->pos().y() + yShift);
+            break;
+        case LEFT:
+            setPos(this->pos().x() - xShift, this->pos().y());
+            break;
+        case RIGHT:
+            setPos(this->pos().x() + xShift, this->pos().y());
+            break;
+    }
+}
+
 void Ghost::swapMode(){
-    qDebug() << "I CHANGED MODE";
     if (mode == SCATTER) {
         setMode(CHASE);
+        qDebug() << "MODE --> CHASE ";
     } else {
         setMode(SCATTER);
+        qDebug() << "MODE --> SCATTER";
         nbScatterCycle++;
     }
     this->timer->setInterval(getModeChangeTime());
@@ -74,7 +129,7 @@ void Ghost::setPlayer(Player* player){
 
 // Return the euclidian distance between two coordinates
 double Ghost::getDistance(QPair<int,int> a, QPair<int,int> b){
-    return sqrt( pow(b.first - a.first,2) + pow(b.second - a.second ,2) );
+    return sqrt( pow(b.first - a.first, 2) + pow(b.second - a.second , 2) );
 }
 
 void Ghost::calculateDirection(){

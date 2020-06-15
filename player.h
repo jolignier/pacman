@@ -11,16 +11,25 @@ using namespace std;
 
 class Player : public Character {
 
+    Q_OBJECT
+
 private:
     int nbLife;
+    bool superMode;
+
+    QTimer* timer;
+
+public slots:
+    void onSuperGumEaten();
+    void disableSuperMode();
 
 public:
     Player(QObject *parent, double x, double y);
 
 	int getNbLife();
-	void setNbLife(int nbLife);
+    void setNbLife(int nbLife);
 
-    QPair<int,int> getPosition();
+    bool isSuperMode();
 
     void keyPressEvent(QKeyEvent *event) override;
     void rotateSprite(Direction dir) override;

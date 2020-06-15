@@ -29,18 +29,25 @@ private:
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget *widget);    
 
 public:
-    Character(QObject *parent, double x, double y, QPixmap* sprite, double speed=3, Direction dir=LEFT, int size=20);
+    Character(QObject *parent, double x, double y, QPixmap* sprite, double speed=4, Direction dir=LEFT, int size=22);
 
     QPixmap* getSprite();
     void setSprite(QPixmap* sprite);
+
+    double getSpeed();
 	void setSpeed(double speed);
+
+    QPair<int,int> getPosition();
+
 	Direction getDirection();
 	void setDirection(Direction direction);
     Direction getFutureDirection();
     void setFutureDirection(Direction futureDirection);
     void applyFutureDirection();
+
     bool canMove(Direction dir);
     void move();
+
     void nextFrame();
 
     QRectF boundingRect() const;

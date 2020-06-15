@@ -1,5 +1,4 @@
-QT += core gui
-QT += network
+QT += core gui network multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -20,12 +19,14 @@ SOURCES += \
     blinky.cpp \
     board.cpp \
     character.cpp \
+    clyde.cpp \
     game.cpp \
     ghost.cpp \
     inky.cpp \
     main.cpp \
     mainwindow.cpp \
     menu.cpp \
+    pinky.cpp \
     player.cpp \
     scoremanager.cpp \
     edible.cpp \
@@ -37,6 +38,7 @@ HEADERS += \
     blinky.h \
     board.h \
     character.h \
+    clyde.h \
     direction.h \
     game.h \
     ghost.h \
@@ -44,6 +46,7 @@ HEADERS += \
     inky.h \
     mainwindow.h \
     menu.h \
+    pinky.h \
     player.h \
     scoremanager.h \
     edible.h \
@@ -58,6 +61,8 @@ FORMS += \
 
 RESOURCES += \
     resources.qrc
+
+RC_ICONS = icon.ico
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

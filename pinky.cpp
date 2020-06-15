@@ -1,22 +1,23 @@
-#include "blinky.h"
+#include "pinky.h"
 
-#include <QDebug>
-
-Blinky::Blinky(QObject *parent, double x, double y):
-    Ghost(parent, x, y, new QPixmap(":/sprites/blinky/up")){
+Pinky::Pinky(QObject *parent, double x, double y):
+    Ghost(parent, x, y, new QPixmap(":/sprites/pinky/up")){
 }
 
-QPair<int,int> Blinky::getTarget(){
+// Pinky always target 4 tiles in front of pacman
+// When chasing
+
+QPair<int,int> Pinky::getTarget(){
     QPair<int,int> res;
     switch (this->getMode()){
         case SCATTER:
-            res = QPair<int,int>(27,1);
+            res = QPair<int,int>(2,1);
             break;
         case CHASE:
-            res = getPlayer()->getPosition();
+            res = this->getChaseTarget();
             break;
         case EATEN:
-            res = QPair<int,int>(13,14);
+            res = QPair<int,int>(14,14);
             break;
         case FRIGHTENED:
             break;
@@ -24,13 +25,34 @@ QPair<int,int> Blinky::getTarget(){
     return res;
 }
 
-void Blinky::rotateSprite(Direction dir){
+QPair<int,int> Pinky::getChaseTarget(){
+    int x = getPlayer()->getPosition().first;
+    int y = getPlayer()->getPosition().second;
+    switch(getPlayer()->getDirection()){
+        case UP:
+            y -= 4;
+            break;
+        case DOWN:
+            y+= 4;
+            break;
+        case LEFT:
+            x -= 4;
+            break;
+        case RIGHT:
+            x += 4;
+            break;
+    }
+    return QPair<int,int>(x,y);
+}
+
+
+void Pinky::rotateSprite(Direction dir){
     QString prefix;
 
     switch (this->getMode()){
         case SCATTER:
         case CHASE:
-            prefix = ":/sprites/blinky/";
+            prefix = ":/sprites/pinky/";
             break;
         case FRIGHTENED:
             prefix = ":/sprites/frightened/";

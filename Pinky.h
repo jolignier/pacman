@@ -1,7 +1,17 @@
 #ifndef PINKY_H
 #define PINKY_H
 
-class Pinky : Ghost {
+#include "ghost.h"
+
+class Pinky : public Ghost {
+
+public:
+    Pinky(QObject *parent, double x, double y);
+
+    QPair<int,int> getChaseTarget();
+
+    QPair<int,int> getTarget() override;
+    void rotateSprite(Direction dir) override;
 };
 
 #endif

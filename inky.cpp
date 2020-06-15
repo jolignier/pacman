@@ -18,10 +18,11 @@ QPair<int,int> Inky::getTarget(){
 
             // If distance = 5 and Blinky is at the top right of pacman
             // Inky will focus with distance = 5 on the bottom left
+            res = getChaseTarget();
             break;
         }
         case EATEN:
-            res = QPair<int,int>(14,14);
+            res = QPair<int,int>(15,14);
             break;
         case FRIGHTENED:{
             break;
@@ -30,19 +31,44 @@ QPair<int,int> Inky::getTarget(){
     return res;
 }
 
+QPair<int,int> Inky::getChaseTarget(){
+    int delta_x = getPlayer()->getPosition().first - this->blinky->getPosition().first;
+    int delta_y = getPlayer()->getPosition().second - this->blinky->getPosition().second;
+
+    int x = getPlayer()->getPosition().first + delta_x;
+    int y = getPlayer()->getPosition().second + delta_y;
+
+    return QPair<int,int>(x,y);
+}
+
 void Inky::rotateSprite(Direction dir){
+    QString prefix;
+
+    switch (this->getMode()){
+        case SCATTER:
+        case CHASE:
+            prefix = ":/sprites/inky/";
+            break;
+        case FRIGHTENED:
+            prefix = ":/sprites/frightened/";
+        break;
+        case EATEN:
+            prefix = ":/sprites/eyes/";
+            break;
+    }
+
     switch (dir) {
         case UP:
-            this->setSprite(new QPixmap(":/sprites/inky/up"));
+            this->setSprite(new QPixmap(prefix + "up"));
             break;
         case DOWN:
-            this->setSprite(new QPixmap(":/sprites/inky/down"));
+            this->setSprite(new QPixmap(prefix + "down"));
             break;
         case LEFT:case NONE:
-            this->setSprite(new QPixmap(":/sprites/inky/left"));
+            this->setSprite(new QPixmap(prefix + "left"));
             break;
         case RIGHT:
-            this->setSprite(new QPixmap(":/sprites/inky/right"));
+            this->setSprite(new QPixmap(prefix + "right"));
             break;
     }
 }

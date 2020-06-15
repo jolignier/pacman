@@ -6,8 +6,10 @@ Player::Player(QObject *parent, double x, double y) :
     Character(parent, x, y, new QPixmap(":/sprites/player/pac"))
 {
     this->nbLife = 3;
+    this->superMode = false;
     this->setFutureDirection(NONE);
     this->rotateSprite(LEFT);
+
 }
 
 int Player::getNbLife() {
@@ -18,11 +20,19 @@ void Player::setNbLife(int nbLife) {
 	this->nbLife = nbLife;
 }
 
-QPair<int,int> Player::getPosition(){
-    int x = this->pos().x() / Board::wallSize;
-    int y = this->pos().y() / Board::wallSize;
+bool Player::isSuperMode(){
+    return this->superMode;
+}
 
-    return QPair<int,int>(x,y);
+void Player::onSuperGumEaten(){
+    this->superMode = true;
+    this->timer = new QTimer();
+    this->timer->start(7000);
+    this->connect(timer, SIGNAL(timeout()), this, SLOT(disableSuperMode()));
+}
+
+void Player::disableSuperMode(){
+    this->superMode = false;
 }
 
 void Player::keyPressEvent(QKeyEvent *event){

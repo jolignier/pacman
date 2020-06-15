@@ -22,6 +22,10 @@ void Character::setSprite(QPixmap* sprite) {
     this->sprite = sprite;
 }
 
+double Character::getSpeed(){
+    return this->speed;
+}
+
 void Character::setSpeed(double speed) {
 	this->speed = speed;
 }
@@ -52,6 +56,13 @@ void Character::applyFutureDirection(){
             setFutureDirection(NONE);
         }
     }
+}
+
+QPair<int,int> Character::getPosition(){
+    int x = this->pos().x() / Board::wallSize;
+    int y = this->pos().y() / Board::wallSize;
+
+    return QPair<int,int>(x,y);
 }
 
 bool Character::canMove(Direction dir){
@@ -104,14 +115,14 @@ void Character::move() {
         }
         case LEFT:{
             if (canMove(direction)) {
-                if (pos().x()-speed < 15) setPos(600, pos().y()); // Teleport to right side of map
+                if (pos().x()-speed < 1*Board::wallSize) setPos((Board::nbColumns-1)*Board::wallSize, pos().y()); // Teleport to right side of map
                 else setPos(pos().x()-speed, pos().y());
             }
             break;
         }
         case RIGHT:{
             if (canMove(direction)) {
-                if (pos().x()+speed > 600) setPos(15, pos().y()); // Teleport to left side of map
+                if (pos().x()+speed > (Board::nbColumns-1)*Board::wallSize) setPos(1*Board::wallSize, pos().y()); // Teleport to left side of map
                 else setPos(pos().x()+speed, pos().y());
             }
             break;

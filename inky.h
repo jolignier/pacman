@@ -17,6 +17,7 @@ public:
     QPair<int,int> getTarget() override;
     void rotateSprite(Direction dir) override;
 
+    QPair<int,int> getChaseTarget();
     void setBlinky(Blinky* blinky);
 };
 

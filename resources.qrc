@@ -7,7 +7,9 @@
     <qresource prefix="/fonts">
         <file alias="emulogic">resources/fonts/emulogic.ttf</file>
     </qresource>
-    <qresource prefix="/sounds"/>
+    <qresource prefix="/sounds">
+        <file alias="chomp">resources/sounds/pacman_chomp.wav</file>
+    </qresource>
     <qresource prefix="/sprites/inky">
         <file alias="down">resources/sprites/inky/down.png</file>
         <file alias="left">resources/sprites/inky/left.png</file>
@@ -41,5 +43,11 @@
         <file alias="left">resources/sprites/blinky/left.png</file>
         <file alias="right">resources/sprites/blinky/right.png</file>
         <file alias="up">resources/sprites/blinky/up.png</file>
+    </qresource>
+    <qresource prefix="/sprites/frightened">
+        <file alias="down">resources/sprites/frightened/down.png</file>
+        <file alias="left">resources/sprites/frightened/left.png</file>
+        <file alias="right">resources/sprites/frightened/right.png</file>
+        <file alias="up">resources/sprites/frightened/up.png</file>
     </qresource>
 </RCC>
