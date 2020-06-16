@@ -12,6 +12,7 @@ public:
     void rotateSprite(Direction dir) override;
 
     QPair<int,int> getChaseTarget();
+    void nextFrame();
 };
 
 #endif

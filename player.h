@@ -31,6 +31,8 @@ public:
 
     bool isSuperMode();
 
+    bool canMove(Direction dir);
+
     void keyPressEvent(QKeyEvent *event) override;
     void rotateSprite(Direction dir) override;
 };

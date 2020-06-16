@@ -34,6 +34,7 @@ public slots:
     void swapMode();
     void onSuperGumEaten();
     void disableFrightenedMode();
+    void disableEatenMode();
 
 public:
     Ghost(QObject *parent, double x, double y, QPixmap* sprite);
@@ -52,10 +53,12 @@ public:
     Direction getNextDirection();
 
     bool isWall(Direction dir);
+    bool canMove(Direction dir);
+
     bool isOppositeDirection(Direction dir);
     bool isNotLastIntersection(int x, int y);
 
-    void nextFrame();
+    virtual void nextFrame();
 
     virtual QPair<int,int> getTarget() = 0;
     virtual void rotateSprite(Direction dir) = 0;

@@ -5,7 +5,8 @@ enum GhostMode {
     CHASE,
     SCATTER,
     FRIGHTENED,
-    EATEN
+    EATEN,
+    PATTERN
 };
 
 #endif // GHOSTMODE_H

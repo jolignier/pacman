@@ -19,6 +19,7 @@ public:
 
     QPair<int,int> getChaseTarget();
     void setBlinky(Blinky* blinky);
+    void nextFrame();
 };
 
 #endif

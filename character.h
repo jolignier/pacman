@@ -45,7 +45,7 @@ public:
     void setFutureDirection(Direction futureDirection);
     void applyFutureDirection();
 
-    bool canMove(Direction dir);
+    virtual bool canMove(Direction dir);
     void move();
 
     void nextFrame();

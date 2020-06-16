@@ -11,6 +11,8 @@ public:
 
     QPair<int,int> getTarget() override;
     void rotateSprite(Direction dir) override;
+
+    void nextFrame();
 };
 
 

@@ -76,3 +76,10 @@ void Inky::rotateSprite(Direction dir){
 void Inky::setBlinky(Blinky* blinky){
     this->blinky = blinky;
 }
+
+void Inky::nextFrame(){
+    if (this->getPosition() == QPair<int,int>(13,14) && this->getMode() == EATEN){
+        this->disableEatenMode();
+    }
+    Ghost::nextFrame();
+}

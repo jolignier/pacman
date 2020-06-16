@@ -55,3 +55,10 @@ void Blinky::rotateSprite(Direction dir){
             break;
     }
 }
+
+void Blinky::nextFrame(){
+    if (this->getPosition() == QPair<int,int>(13,14) && this->getMode() == EATEN){
+        this->disableEatenMode();
+    }
+    Ghost::nextFrame();
+}

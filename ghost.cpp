@@ -5,7 +5,7 @@
 Ghost::Ghost(QObject *parent, double x, double y, QPixmap* sprite) :
     Character(parent, x, y, sprite) {
 
-    setMode(SCATTER);    
+    setMode(SCATTER);
     nbScatterCycle = 1;
     this->timer = new QTimer();
     this->timer->start(getModeChangeTime());
@@ -42,7 +42,11 @@ GhostMode Ghost::getMode(){
     return this->mode;
 }
 
-void Ghost::setMode(GhostMode mode){
+void Ghost::setMode(GhostMode mode){    
+    if (mode == EATEN){
+        disableFrightenedMode();
+        this->timer->stop();
+    }
     this->mode = mode;
 }
 
@@ -77,6 +81,14 @@ void Ghost::disableFrightenedMode(){
     this->fixDistanceShift(4);
     // Then set speed to normal
     this->setSpeed(4);
+}
+
+void Ghost::disableEatenMode(){
+    this->setMode(CHASE);
+    this->rotateSprite(this->getDirection());
+    this->timer->stop();
+    this->timer->start(getModeChangeTime());
+    this->connect(timer, SIGNAL(timeout()), this, SLOT(swapMode()));
 }
 
 void Ghost::fixDistanceShift(double baseSpeed){
@@ -196,6 +208,16 @@ bool Ghost::isWall(Direction dir){
     return res;
 }
 
+bool Ghost::canMove(Direction dir){
+    bool res = Character::canMove(dir);
+    int x = this->pos().x() / Board::wallSize;
+    int y = this->pos().y() / Board::wallSize;
+    if (dir == DOWN && Board::isGhostWall(x, y+1))
+        res = (this->mode == EATEN);
+
+    return res;
+}
+
 bool Ghost::isOppositeDirection(Direction dir){
     bool res = false;
     switch (this->getDirection()){
@@ -221,7 +243,7 @@ bool Ghost::isNotLastIntersection(int x, int y){
 
 void Ghost::nextFrame(){
     int x = this->pos().x() / Board::wallSize;
-    int y = this->pos().y() / Board::wallSize;
+    int y = this->pos().y() / Board::wallSize;    
 
     if (!canMove(this->getDirection()) || (Board::isIntersection(x,y) && isNotLastIntersection(x,y))){
         this->setFutureDirection(getNextDirection());

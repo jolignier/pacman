@@ -52,6 +52,16 @@ void Player::keyPressEvent(QKeyEvent *event){
     }
 }
 
+bool Player::canMove(Direction dir){
+    bool res = Character::canMove(dir);
+    int x = this->pos().x() / Board::wallSize;
+    int y = this->pos().y() / Board::wallSize;
+    if (dir == DOWN && Board::isGhostWall(x, y+1))
+        res = false;
+
+    return res;
+}
+
 void Player::rotateSprite(Direction dir) {
 
     double centerX = this->boundingRect().width()/2;

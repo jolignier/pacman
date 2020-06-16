@@ -73,3 +73,10 @@ void Clyde::rotateSprite(Direction dir){
             break;
     }
 }
+
+void Clyde::nextFrame(){
+    if (this->getPosition() == QPair<int,int>(15,14) && this->getMode() == EATEN){
+        this->disableEatenMode();
+    }
+    Ghost::nextFrame();
+}

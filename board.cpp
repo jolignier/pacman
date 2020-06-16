@@ -21,6 +21,10 @@ bool Board::isWall(int x, int y) {
     return (board[y][x] == 1);
 }
 
+bool Board::isGhostWall(int x, int y){
+    return (board[y][x] == 4);
+}
+
 bool Board::isGum(int x, int y) {
     return (board[y][x] == 2);
 }
@@ -54,7 +58,7 @@ bool Board::isClyde(int x, int y) {
 }
 
 bool Board::isIntersection(int x, int y) {
-    for (int i=0; i<34; i++) {
+    for (int i=0; i<40; i++) {
         if (intersections[i][0] == x && intersections[i][1] == y)
             return true;
     }

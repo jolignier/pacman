@@ -150,13 +150,48 @@ void Game::update() {
     }
 
     if (player->collidesWithItem(inky)){
-        if (!player->isSuperMode()) qDebug() << "IM DYING";
+        if (player->isSuperMode()){
+            if (inky->isAffraid()){
+                qDebug() << "+200 points !";
+                inky->setMode(EATEN);
+                inky->rotateSprite(inky->getDirection());
+            }
+        } else {
+            qDebug() << "IM DYING";
+        }
+
     } else if (player->collidesWithItem(pinky)){
-        if (!player->isSuperMode()) qDebug() << "IM DYING";
+        if (player->isSuperMode()){
+            if (pinky->isAffraid()){
+                qDebug() << "+200 points !";
+                pinky->setMode(EATEN);
+                pinky->rotateSprite(pinky->getDirection());
+            }
+        } else {
+            qDebug() << "IM DYING";
+        }
+
     } else if (player->collidesWithItem(blinky)){
-        if (!player->isSuperMode()) qDebug() << "IM DYING";
+        if (player->isSuperMode()){
+            if (blinky->isAffraid()){
+                qDebug() << "+200 points !";
+                blinky->setMode(EATEN);
+                blinky->rotateSprite(blinky->getDirection());
+            }
+        } else {
+            qDebug() << "IM DYING";
+        }
+
     } else if (player->collidesWithItem(clyde)){
-        if (!player->isSuperMode()) qDebug() << "IM DYING";
+        if (player->isSuperMode()){
+            if (clyde->isAffraid()){
+                qDebug() << "+200 points !";
+                clyde->setMode(EATEN);
+                clyde->rotateSprite(clyde->getDirection());
+            }
+        } else {
+            qDebug() << "IM DYING";
+        }
     }
 }
 
