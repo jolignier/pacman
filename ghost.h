@@ -33,8 +33,10 @@ public slots:
     void onSpawn();
     void swapMode();
     void onSuperGumEaten();
+
     void disableFrightenedMode();
     void disableEatenMode();
+    void disablePatternMode();
 
 public:
     Ghost(QObject *parent, double x, double y, QPixmap* sprite);
@@ -52,8 +54,9 @@ public:
     void calculateDirection();
     Direction getNextDirection();
 
-    bool isWall(Direction dir);
+    bool isWall(Direction dir);    
     bool canMove(Direction dir);
+    bool isInHome();
 
     bool isOppositeDirection(Direction dir);
     bool isNotLastIntersection(int x, int y);

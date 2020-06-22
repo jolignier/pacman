@@ -34,6 +34,10 @@ int Ghost::getModeChangeTime(){
     return res;
 }
 
+bool Ghost::isInHome(){
+    return Board::isInGhostHome(this->getPosition().first, this->getPosition().second);
+}
+
 bool Ghost::isAffraid() {
     return (mode == FRIGHTENED);
 }
@@ -59,7 +63,7 @@ void Ghost::onSuperGumEaten(){
     this->setMode(FRIGHTENED);
     this->rotateSprite(this->getDirection());
     this->timer->stop();
-    this->timer->start(7000);
+    this->timer->start(10000);
     this->connect(timer, SIGNAL(timeout()), this, SLOT(disableFrightenedMode()));
     this->setSpeed(2);
 }
@@ -84,6 +88,14 @@ void Ghost::disableFrightenedMode(){
 }
 
 void Ghost::disableEatenMode(){
+    this->setMode(PATTERN);
+    this->rotateSprite(this->getDirection());
+    this->timer->stop();
+    this->timer->start(3000);
+    this->connect(timer, SIGNAL(timeout()), this, SLOT(disablePatternMode()));
+}
+
+void Ghost::disablePatternMode() {
     this->setMode(CHASE);
     this->rotateSprite(this->getDirection());
     this->timer->stop();
@@ -178,8 +190,8 @@ Direction Ghost::getNextDirection(){
     if (Board::isIntersection(x,y)){
         lastIntersection = QPair<int,int>(x,y);
     }
-    int i =1;
-    while (isWall(next) || isOppositeDirection(next)){
+    int i = 1;
+    while (isWall(next) || (isOppositeDirection(next) && mode != PATTERN)){
         next = directionOrder[i].second;
         i++;
     }
@@ -238,12 +250,12 @@ bool Ghost::isOppositeDirection(Direction dir){
 }
 
 bool Ghost::isNotLastIntersection(int x, int y){
-    return !(lastIntersection.first == x && lastIntersection.second ==y);
+    return !(lastIntersection.first == x && lastIntersection.second == y);
 }
 
 void Ghost::nextFrame(){
-    int x = this->pos().x() / Board::wallSize;
-    int y = this->pos().y() / Board::wallSize;    
+    int x = (this->pos().x() + getSize()/2) / Board::wallSize;
+    int y = (this->pos().y() + getSize()/2) / Board::wallSize;
 
     if (!canMove(this->getDirection()) || (Board::isIntersection(x,y) && isNotLastIntersection(x,y))){
         this->setFutureDirection(getNextDirection());

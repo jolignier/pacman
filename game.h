@@ -66,6 +66,8 @@ private:
     Pinky* pinky;
     Clyde* clyde;
 
+    QVector<Ghost*> ghosts;
+
     Player* player;
 };
 

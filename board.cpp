@@ -58,9 +58,14 @@ bool Board::isClyde(int x, int y) {
 }
 
 bool Board::isIntersection(int x, int y) {
-    for (int i=0; i<40; i++) {
+    for (int i=0; i<44; i++) {
         if (intersections[i][0] == x && intersections[i][1] == y)
             return true;
     }
     return false;
+}
+
+bool Board::isInGhostHome(int x, int y){
+    bool res = (x<17 && x>10) && (y<16 && y>12);
+    return res;
 }

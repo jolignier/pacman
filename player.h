@@ -16,6 +16,7 @@ class Player : public Character {
 private:
     int nbLife;
     bool superMode;
+    int scoreMultiplier;
 
     QTimer* timer;
 
@@ -30,6 +31,9 @@ public:
     void setNbLife(int nbLife);
 
     bool isSuperMode();
+
+    int getScoreMultiplier();
+    void increaseScoreMultiplier();
 
     bool canMove(Direction dir);
 

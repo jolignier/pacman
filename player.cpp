@@ -9,7 +9,7 @@ Player::Player(QObject *parent, double x, double y) :
     this->superMode = false;
     this->setFutureDirection(NONE);
     this->rotateSprite(LEFT);
-
+    this->scoreMultiplier = 1;
 }
 
 int Player::getNbLife() {
@@ -24,15 +24,24 @@ bool Player::isSuperMode(){
     return this->superMode;
 }
 
-void Player::onSuperGumEaten(){
+void Player::onSuperGumEaten(){    
     this->superMode = true;
     this->timer = new QTimer();
-    this->timer->start(7000);
+    this->timer->start(10000);
     this->connect(timer, SIGNAL(timeout()), this, SLOT(disableSuperMode()));
 }
 
 void Player::disableSuperMode(){
     this->superMode = false;
+    this->scoreMultiplier = 1;
+}
+
+int Player::getScoreMultiplier(){
+    return this->scoreMultiplier;
+}
+
+void Player::increaseScoreMultiplier(){
+    this->scoreMultiplier++;
 }
 
 void Player::keyPressEvent(QKeyEvent *event){

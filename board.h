@@ -12,6 +12,7 @@ public:
     static bool isWall(int x, int y);
     static bool isGhostWall(int x, int y);
     static bool isIntersection(int x, int y);
+    static bool isInGhostHome(int x, int y);
 
     bool isGum(int x, int y);
     bool isSuperGum(int x, int y);
@@ -27,15 +28,15 @@ public:
     static const int nbColumns = 28;
     static const int wallSize = 24;
 
-    static constexpr int intersections[40][2] = {
+    static constexpr int intersections[44][2] = {
         {1,5},
         {3,26},
         {6,1}, {6,5}, {6,8}, {6,14}, {6,20}, {6,23},
         {9,5}, {9,14}, {9,17}, {9,20}, {9,23},
-        {12,11}, {12,5}, {12,23}, {12,29},
-        {13,11}, {13,13}, {13,14},
-        {14,11}, {14,13}, {14,14},
-        {15,11}, {15,5}, {15,23}, {15,29},
+        {12,11}, {12,13}, {12,15}, {12,5}, {12,23}, {12,29},
+        {13,11}, {13,13}, {13,15},
+        {14,11}, {14,13}, {14,15},
+        {15,11}, {15,13}, {15,15}, {15,5}, {15,23}, {15,29},
         {18,5}, {18,14}, {18,17}, {18,20}, {18,23},
         {21,1}, {21,5}, {21,8}, {21,14}, {21,20}, {21,23},
         {24,26},

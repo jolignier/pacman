@@ -58,6 +58,10 @@ void Character::applyFutureDirection(){
     }
 }
 
+int Character::getSize(){
+    return this->size;
+}
+
 QPair<int,int> Character::getPosition(){
     int x = this->pos().x() / Board::wallSize;
     int y = this->pos().y() / Board::wallSize;

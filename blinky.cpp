@@ -15,11 +15,15 @@ QPair<int,int> Blinky::getTarget(){
         case CHASE:
             res = getPlayer()->getPosition();
             break;
-        case EATEN:
-            res = QPair<int,int>(13,14);
+        case EATEN:{
+            // Targets the door and when is at the door
+            // Targets its own cell
+            res = QPair<int,int>(12,11);
+            if (this->getPosition() == res || this->isInHome()){
+                res = QPair<int,int>(12,14);
+            }
             break;
-        case FRIGHTENED:
-            break;
+        }
     }
     return res;
 }
@@ -30,6 +34,7 @@ void Blinky::rotateSprite(Direction dir){
     switch (this->getMode()){
         case SCATTER:
         case CHASE:
+        case PATTERN:
             prefix = ":/sprites/blinky/";
             break;
         case FRIGHTENED:
@@ -47,7 +52,7 @@ void Blinky::rotateSprite(Direction dir){
         case DOWN:
             this->setSprite(new QPixmap(prefix + "down"));
             break;
-        case LEFT:case NONE:
+        case LEFT:
             this->setSprite(new QPixmap(prefix + "left"));
             break;
         case RIGHT:
@@ -57,7 +62,7 @@ void Blinky::rotateSprite(Direction dir){
 }
 
 void Blinky::nextFrame(){
-    if (this->getPosition() == QPair<int,int>(13,14) && this->getMode() == EATEN){
+    if (this->getPosition() == QPair<int,int>(12,14) && this->getMode() == EATEN){
         this->disableEatenMode();
     }
     Ghost::nextFrame();

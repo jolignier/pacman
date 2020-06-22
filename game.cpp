@@ -20,6 +20,7 @@ Game::Game(QWidget *parent) :
     connect(score, SIGNAL(scoresRetrieved()), this, SLOT(onScoresRetrieved()));
 
     this->gums = QVector<Gums*>();
+    this->ghosts = QVector<Ghost*>();
 }
 
 Game::~Game()
@@ -58,6 +59,11 @@ void Game::newGame() {
     this->blinky->setPlayer(this->player);
     this->pinky->setPlayer(this->player);
     this->clyde->setPlayer(this->player);
+
+    this->ghosts.push_back(inky);
+    this->ghosts.push_back(pinky);
+    this->ghosts.push_back(blinky);
+    this->ghosts.push_back(clyde);
 }
 
 void Game::displayBoard() {
@@ -149,53 +155,26 @@ void Game::update() {
         }
     }
 
-    if (player->collidesWithItem(inky)){
-        if (player->isSuperMode()){
-            if (inky->isAffraid()){
-                qDebug() << "+200 points !";
-                inky->setMode(EATEN);
-                inky->rotateSprite(inky->getDirection());
+    // Ghost collision with player
+    for (Ghost* g : this->ghosts){
+        if (player->collidesWithItem(g)){
+            if (player->isSuperMode()){
+                if (g->isAffraid()){
+                    this->score->addPoints(this->player->getScoreMultiplier()*200);
+                    qDebug() << " EARNED : " << this->player->getScoreMultiplier()*200 << " POINTS";
+                    this->player->increaseScoreMultiplier();
+                    g->setMode(EATEN);
+                    g->rotateSprite(g->getDirection());
+                }
+            } else {
+                qDebug() << "IM DYING";
             }
-        } else {
-            qDebug() << "IM DYING";
-        }
-
-    } else if (player->collidesWithItem(pinky)){
-        if (player->isSuperMode()){
-            if (pinky->isAffraid()){
-                qDebug() << "+200 points !";
-                pinky->setMode(EATEN);
-                pinky->rotateSprite(pinky->getDirection());
-            }
-        } else {
-            qDebug() << "IM DYING";
-        }
-
-    } else if (player->collidesWithItem(blinky)){
-        if (player->isSuperMode()){
-            if (blinky->isAffraid()){
-                qDebug() << "+200 points !";
-                blinky->setMode(EATEN);
-                blinky->rotateSprite(blinky->getDirection());
-            }
-        } else {
-            qDebug() << "IM DYING";
-        }
-
-    } else if (player->collidesWithItem(clyde)){
-        if (player->isSuperMode()){
-            if (clyde->isAffraid()){
-                qDebug() << "+200 points !";
-                clyde->setMode(EATEN);
-                clyde->rotateSprite(clyde->getDirection());
-            }
-        } else {
-            qDebug() << "IM DYING";
         }
     }
 }
 
 void Game::keyPressEvent(QKeyEvent *event) {
+    qDebug() << "KEY PRESSED";
     this->player->keyPressEvent(event);
 }
 

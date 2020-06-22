@@ -21,10 +21,13 @@ QPair<int,int> Inky::getTarget(){
             res = getChaseTarget();
             break;
         }
-        case EATEN:
-            res = QPair<int,int>(15,14);
-            break;
-        case FRIGHTENED:{
+        case EATEN:{
+            // Targets the door and when is at the door
+            // Targets its own cell
+            res = QPair<int,int>(14,11);
+            if (this->getPosition() == res || this->isInHome()){
+                res = QPair<int,int>(14,14);
+            }
             break;
         }
     }
@@ -47,6 +50,7 @@ void Inky::rotateSprite(Direction dir){
     switch (this->getMode()){
         case SCATTER:
         case CHASE:
+        case PATTERN:
             prefix = ":/sprites/inky/";
             break;
         case FRIGHTENED:
@@ -78,7 +82,7 @@ void Inky::setBlinky(Blinky* blinky){
 }
 
 void Inky::nextFrame(){
-    if (this->getPosition() == QPair<int,int>(13,14) && this->getMode() == EATEN){
+    if (this->getPosition() == QPair<int,int>(14,14) && this->getMode() == EATEN){
         this->disableEatenMode();
     }
     Ghost::nextFrame();

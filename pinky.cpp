@@ -16,11 +16,15 @@ QPair<int,int> Pinky::getTarget(){
         case CHASE:
             res = this->getChaseTarget();
             break;
-        case EATEN:
-            res = QPair<int,int>(14,14);
+        case EATEN:{
+            // Targets the door and when is at the door
+            // Targets its own cell
+            res = QPair<int,int>(13,11);
+            if (this->getPosition() == res || this->isInHome()){
+                res = QPair<int,int>(13,14);
+            }
             break;
-        case FRIGHTENED:
-            break;
+        }
     }
     return res;
 }
@@ -52,6 +56,7 @@ void Pinky::rotateSprite(Direction dir){
     switch (this->getMode()){
         case SCATTER:
         case CHASE:
+        case PATTERN:
             prefix = ":/sprites/pinky/";
             break;
         case FRIGHTENED:

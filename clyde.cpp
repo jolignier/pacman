@@ -15,14 +15,28 @@ QPair<int,int> Clyde::getTarget(){
         case CHASE:{
             // Clyde acts like blinky, when is 8 tiles far from pac
             // If the distance is greater than 8 tiles, he will chase pac position
-            // Elsewise he will focus his corner from SCATTER MODE
-            res = getChaseTarget();
+            // Elsewise he will focus his corner from SCATTER MODE            
+            if (this->isInHome())
+                res = QPair<int,int>(12,11);
+            else
+                res = getChaseTarget();
             break;
         }
-        case EATEN:
-            res = QPair<int,int>(15,14);
+        case EATEN:{
+            // Targets the door and when is at the door
+            // Targets its own cell
+            res = QPair<int,int>(14,11);
+            if (this->getPosition() == res || this->isInHome()){
+                res = QPair<int,int>(15,14);
+            }
             break;
-        case FRIGHTENED:{
+        }
+        case PATTERN: {
+            if (this->getPosition().second > 14){
+                res = QPair<int,int>(15,13);
+            } else {
+                res = QPair<int,int>(15,15);
+            }
             break;
         }
     }
@@ -48,6 +62,7 @@ void Clyde::rotateSprite(Direction dir){
     switch (this->getMode()){
         case SCATTER:
         case CHASE:
+        case PATTERN:
             prefix = ":/sprites/clyde/";
             break;
         case FRIGHTENED:
@@ -74,7 +89,7 @@ void Clyde::rotateSprite(Direction dir){
     }
 }
 
-void Clyde::nextFrame(){
+void Clyde::nextFrame(){    
     if (this->getPosition() == QPair<int,int>(15,14) && this->getMode() == EATEN){
         this->disableEatenMode();
     }

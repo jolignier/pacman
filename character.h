@@ -25,7 +25,6 @@ private:
     int currentFrame;
     int size;
 
-
     void paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget *widget);    
 
 public:
@@ -38,6 +37,7 @@ public:
 	void setSpeed(double speed);
 
     QPair<int,int> getPosition();
+    int getSize();
 
 	Direction getDirection();
 	void setDirection(Direction direction);
